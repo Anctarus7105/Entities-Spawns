@@ -1,0 +1,56 @@
+local Creator = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors%20Entity%20Spawner/Source.lua"))()
+
+local entity = Creator.createEntity({
+    CustomName = "A 200", -- Custom name of your entity
+    Model = 15277953336,
+    Speed = 333, -- Percentage, 100 = default Rush speed
+    DelayTime = 1, -- Time before starting cycles (seconds)
+    HeightOffset = 0,
+    CanKill = true,
+    BreakLights = false,
+    FlickerLights = {
+        false, -- Enabled
+        0, -- Time (seconds)
+    },
+    Cycles = {
+        Min = 5,
+        Max = 25,
+        WaitTime = 0,
+    },
+    CamShake = {
+        true, -- Enabled
+        {5, 15, 0.1, 1}, -- Shake values (don't change if you don't know)
+        1, -- Shake start distance (from Entity to you)
+    },
+    Jumpscare = {
+        false, -- Enabled ('false' if you don't want jumpscare)
+        {
+            Image1 = "rbxassetid://12650043114", -- Image1 url
+            Image2 = "rbxassetid://12650043114", -- Image2 url
+            Shake = false,
+            Sound1 = { 
+               2306939610, -- SoundId
+                { Volume = 1 }, -- Sound properties
+            },
+            Sound2 = {
+                2306939610, -- SoundId
+                { Volume = 0 }, -- Sound properties
+            },
+            Flashing = {
+                false, -- Enabled
+                Color3.fromRGB(255,255,255), -- Color
+            },
+            Tease = {
+                false, -- Enabled ('false' if you don't want tease)
+                Min = 1,
+                Max = 1,
+            },
+        },
+    },
+CustomDialog = {"You died to A 200 (fu+k u beАch", "When the sounds is starting play, Hide, If its near u bЕаch", "Its Rebounding.", "Hope you have good balls! >:)!"},  -- Custom death message (can be as long as you want)
+})
+
+------------------------
+
+-- Run the created entity
+Creator.runEntity(entity)
