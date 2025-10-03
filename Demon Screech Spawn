@@ -3,7 +3,7 @@ local SelfModules = {
     Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))(),
 }
 DefaultConfig  = {
-    Model="https://github.com/Anctarus7105/Random-Files/DemonScreech.rbxm?raw=true",
+    Model="https://github.com/Anctarus7105/Random-Files/blob/main/DemonScreech.rbxm?raw=true",
     Hurts = true,
 }
 local DemonScreech = {}
