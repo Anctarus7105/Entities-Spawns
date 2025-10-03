@@ -7,14 +7,14 @@ local entity = Creator.createEntity({
     DelayTime = 5, -- Time before starting cycles (seconds)
     HeightOffset = 0,
     CanKill = true,
-    BreakLights = true,
+    BreakLights = false,
     FlickerLights = {
         true, -- Enabled
-        0.1, -- Time (seconds)
+        1.2, -- Time (seconds)
     },
     Cycles = {
         Min = 5,
-        Max = 5,
+        Max = 8,
         WaitTime = 3,
     },
     CamShake = {
@@ -29,11 +29,11 @@ local entity = Creator.createEntity({
             Image2 = "8117957804", -- Image2 url
             Shake = false,
             Sound1 = { 
-               530591527, -- SoundId
+               0, -- SoundId
                 { Volume = 1 }, -- Sound properties
             },
             Sound2 = {
-                530591527, -- SoundId
+                0, -- SoundId
                 { Volume = 0 }, -- Sound properties
             },
             Flashing = {
