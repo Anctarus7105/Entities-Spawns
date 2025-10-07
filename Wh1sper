@@ -1,0 +1,49 @@
+local plr = game.Players.LocalPlayer
+local chr = plr.Character or plr.CharacterAdded:Wait()
+local humrp = chr:WaitForChild("HumanoidRootPart")
+local RunService = game:GetService("RunService")
+
+local speed = 5
+local Move = true
+
+local entityModel = game:GetObjects("rbxassetid://128240312608241")[1]
+entityModel.Parent = workspace
+local Primary = entityModel:FindFirstChildWhichIsA("BasePart")
+entityModel.PrimaryPart = Primary
+entityModel:SetPrimaryPartCFrame(humrp.CFrame * CFrame.new(0, 0, 30))
+
+RunService.Heartbeat:Connect(function(dt)
+    if not Move or not entityModel or not entityModel.PrimaryPart or not humrp then return end
+    local pos = entityModel.PrimaryPart.Position
+    local target = humrp.Position
+    local dir = (target - pos).Unit
+    local moveVec = dir * speed * dt
+    local newCFrame = CFrame.new(pos + moveVec, target)
+    entityModel:SetPrimaryPartCFrame(newCFrame)
+end)
+
+local entityPart = entityModel:FindFirstChild("Whisper")
+if entityPart then
+    entityPart.Touched:Connect(function(hit)
+        local h = hit.Parent and hit.Parent:FindFirstChild("Humanoid")
+        if h and hit:IsDescendantOf(chr) then
+            h:TakeDamage(100)
+            local stats = game:GetService("ReplicatedStorage").GameStats
+            if stats:FindFirstChild("Player_" .. plr.Name) then
+                stats["Player_" .. plr.Name].Total.DeathCause.Value = "Whisper"
+            end
+        end
+    end)
+end
+
+task.delay(math.random(20, 25), function()
+    Move = false
+    wait(0.5)
+    if entityModel and entityModel.PrimaryPart then
+        entityModel:SetPrimaryPartCFrame(entityModel.PrimaryPart.CFrame * CFrame.new(0, -100, 0))
+    end
+    wait(1)
+    if entityModel then
+        entityModel:Destroy()
+    end
+end)
