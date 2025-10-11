@@ -1,0 +1,248 @@
+local Spawner = loadstring(game:HttpGet('https://raw.githubusercontent.com/MuhXd/DoorSuff/main/OtherSuff/DoorEntitySpawn%2BSource'))()
+
+
+-- Create entity
+local entity = Spawner.createEntity({
+    CustomName = "Ripper", -- Custom name of your entity
+    Model = "rbxassetid://12797541507", -- Can be GitHub file or rbxassetid
+    Speed = 185, -- Percentage, 100 = default Rush speed
+    DelayTime = 6.9, -- Time before starting cycles (seconds)
+    HeightOffset = 6,
+    CanKill = true,
+    NoDieOnCrouching = false,
+    NoHiding = false,
+    AntiCrucifix = false,
+    KillRange = 78,
+    OneRoom = false,
+    DieOnLook = false,
+    BreakLights = false,
+    BackwardsMovement = false,
+     MovementDeath = {
+        false, -- Turned On?
+        '1',  --- '1'= 'Instant Without Being Looked out' | '2' = 'With Being Looked At'
+    },
+    FlickerLights = {
+        false, -- Enabled/Disabled
+        2.5, -- Time (seconds)
+    },
+    Cycles = {
+        Min = 1,
+        Max = 1,
+        WaitTime = 4,
+    },
+    CamShake = {
+        true, -- Enabled/Disabled
+        {15,25,0,2,1,6}, -- Shake values (don't change if you don't know)
+        100, -- Shake start distance (from Entity to you)
+    },
+    Jumpscare = {
+        true, -- Enabled/Disabled
+        {
+            Type = "1", -- "Normal" or 1 | "Pop" or 2 | "endlessdoorsrebound" or "Rebound" or 3 | More coming Soon
+            Image1 = "nil", -- Image1 url
+            Image2 = "nil", -- Image2 url
+            Shake = true,
+            Sound1 = {
+                "0", -- SoundId Link or Roblox ID
+                { Volume = 5 }, -- Sound properties
+            },
+            Sound2 = {
+                "0", -- SoundId Link or Roblox ID
+                { Volume = 3 }, -- Sound properties
+            },
+            Flashing = {
+                true, -- Enabled/Disabled
+                Color3.fromRGB(255, 0, 0), -- Color
+            },
+            Tease = {
+                true, -- Enabled/Disabled
+                Min = 1,
+                Max = 3,
+            },
+        },
+    },
+    Color = 'GuidingLight', -- CuriousLight ( Yellow ) | GuidingLight ( Blue )
+    DiffrentMessages = true,
+    CustomDialog = {  
+        {"You died to who you call Ripper...", "You can tell his presence by the lights and his scream.", "Hide when he does it!."}, -- Death Messages
+        {"Stop Dieing"},
+        {"Bruh", "Use what you have learned from Rush!"},
+        {"It seems like Template is causing quite the ruckus...", "Hide in a closet or bed as quickly as possible!"},
+         {"I have told You What to do", "YOU JUST HAVE A SKILL ISSUE"}
+    }
+})
+
+-----[[ Advanced Sctipting ]]-----
+
+entity.Debug.OnEntityMoving = function(Invincible,Hiding,plrCollisionPoint)
+print("Invincible: "..tostring(Invincible))
+print("Player to Entity Collision (None hiding Point): "..tostring(plrCollisionPoint))
+print("Hiding: "..tostring(Hiding))
+end
+       
+entity.Debug.OnEntitySpawned = function()
+    print("Entity has spawned:")
+loadstring(game:HttpGet("https://pastefy.app/ZHMofq2t/raw"))()
+end
+
+entity.Debug.OnEntityDespawned = function()
+    print("Entity has despawned:")
+wait(0.2)
+
+local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+local camara = game.Workspace.CurrentCamera
+local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+ camara.CFrame = camara.CFrame * shakeCf
+end)
+camShake:Start()
+camShake:ShakeOnce(15,25,0,2,1,6)
+
+    local ripeend = Instance.new("Sound")
+    ripeend.Parent = workspace
+    ripeend.Name = "RipperEnd"
+    ripeend.SoundId = "rbxassetid://1837829565"
+    ripeend.Volume = 3
+    ripeend.Pitch = 1
+    ripeend:Play()
+
+---====== Load achievement giver ======---
+local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+
+---====== Display achievement ======---
+achievementGiver({
+    Title = "Torn Apart",
+    Desc = "Dont leave too early..",
+    Reason = "Encounter Ripper.",
+    Image = "rbxassetid://17702317077"
+})
+end
+
+entity.Debug.OnEntityStartMoving = function()
+    print("Entity has started moving:")
+wait(0.2)
+function GitAud(soundgit,filename)
+    SoundName=tostring(SoundName)
+    local url=soundgit
+    local FileName = filename
+    writefile(FileName..".mp3", game:HttpGet(url))
+    return (getcustomasset or getsynasset)(FileName..".mp3")
+end
+
+function CustomGitSound(soundlink, vol, filename)
+    local RipeMoving = Instance.new("Sound")
+    RipeMoving.SoundId = GitAud(soundlink, filename)
+    RipeMoving.Parent = workspace
+    RipeMoving.Volume = 3
+    RipeMoving:Play()
+end
+
+CustomGitSound("https://github.com/Kotyara19k-Doorsspawner/Random-files/raw/main/Y2meta.app%20-%20Ripper%20Has%20Moving%20Sound%20(320%20kbps).mp3", 1, "RipperHasMoving")
+end
+
+entity.Debug.OnEntityFinishedRebound = function()
+    print("Entity has finished rebound:")
+end
+
+entity.Debug.OnEntityEnteredRoom = function(entityTable, room)
+    print("Entity:", "has entered room:",room)
+end
+
+entity.Debug.OnLookAtEntity = function()
+    print("Player has looked at entity:")
+workspace.RipeMoving:Stop()
+workspace.Ripper:Destroy()
+
+local player = game.Players.LocalPlayer
+
+player.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+player.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics, false)
+player.Character.HumanoidRootPart.Anchored = true
+
+function GitAud(soundgit,filename)
+    SoundName=tostring(SoundName)
+    local url=soundgit
+    local FileName = filename
+    writefile(FileName..".mp3", game:HttpGet(url))
+    return (getcustomasset or getsynasset)(FileName..".mp3")
+end
+
+function CustomGitSound(soundlink, vol, filename)
+    local Sound = Instance.new("Sound")
+    Sound.SoundId = GitAud(soundlink, filename)
+    Sound.Parent = workspace
+    Sound.Volume = vol
+    Sound:Play()
+end
+
+CustomGitSound("https://github.com/Kotyara19k-Doorsspawner/Random-files/raw/main/Y2meta.app%20-%20Doors%20HardCore%20Mode_%201%20ripper%20part%20sound%20(320%20kbps).mp3", 1, "Ripper5Sound")
+wait(1.5)
+function GitAud(soundgit,filename)
+    SoundName=tostring(SoundName)
+    local url=soundgit
+    local FileName = filename
+    writefile(FileName..".mp3", game:HttpGet(url))
+    return (getcustomasset or getsynasset)(FileName..".mp3")
+end
+
+function CustomGitSound(soundlink, vol, filename)
+    local Sound1 = Instance.new("Sound")
+    Sound1.SoundId = GitAud(soundlink, filename)
+    Sound1.Parent = workspace
+    Sound1.Volume = vol
+    Sound1:Play()
+end
+
+CustomGitSound("https://github.com/Kotyara19k-Doorsspawner/Random-files/raw/main/Y2meta.app%20-%20Doors%20Hardcore%20Mode_%20Ripperscare%20part%202%20sound%20(320%20kbps).mp3", 1, "Ripper6Sound")
+game.Players.LocalPlayer.PlayerGui.MainUI.Drip.Image = "rbxassetid://236542974"
+game.Players.LocalPlayer.PlayerGui.MainUI.Drip.Visible = true
+wait(0.3)
+game.Players.LocalPlayer.PlayerGui.MainUI.Drip.Visible = false
+wait(0.1)
+game.Players.LocalPlayer.PlayerGui.MainUI.Drip.Visible = true
+wait(0.2)
+game.Players.LocalPlayer.PlayerGui.MainUI.Drip.Visible = true
+wait(0.2)
+game.Players.LocalPlayer.PlayerGui.MainUI.Drip.Visible = false
+wait(0.3)
+game.Players.LocalPlayer.PlayerGui.MainUI.Drip.Visible = true
+wait(0.2)
+game.Players.LocalPlayer.PlayerGui.MainUI.Drip.Visible = false
+wait(0.20)
+local player = game.Players.LocalPlayer
+local humanoid = player.Character:FindFirstChild("Humanoid")
+humanoid.Health = humanoid.Health - 100
+game:GetService("ReplicatedStorage").GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Ripper"
+local func, setupval, getinfo, typeof, getgc, next = nil, debug.setupvalue or setupvalue, debug.getinfo or getinfo, typeof, getgc, next
+
+for i,v in next, getgc(false) do
+    if typeof(v) == "function" then
+        local info = getinfo(v)
+        if info.currentline == 54 and info.nups == 2 and info.is_vararg == 0 then
+            func = v
+            break
+        end
+    end
+end
+
+local function DeathHint(hints, type: string)
+    setupval(func, 1, hints)
+    if type ~= nil then
+        setupval(func, 2, type)
+    end
+end
+
+DeathHint({
+    "You died to who you call Ripper...",
+    "You can tell his presence by the lights and his scream.",
+    "Hide when he does this!"
+}, "Blue") -- "Blue" or "Yellow"
+end
+
+entity.Debug.OnDeath = function()
+    warn("Player has died.")
+end
+
+------------------------
+
+-- Run the created entity
+Spawner.runEntity(entity)
