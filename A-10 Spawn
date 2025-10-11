@@ -1,0 +1,56 @@
+local Creator = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors%20Entity%20Spawner/Source.lua"))()
+
+local entity = Creator.createEntity({
+    CustomName = "A-10", -- Custom name of your entity
+    Model = 16167826430,
+    Speed = 55, -- Percentage, 100 = default Rush speed
+    DelayTime = 2, -- Time before starting cycles (seconds)
+    HeightOffset = 0,
+    CanKill = true,
+    BreakLights = true,
+    FlickerLights = {
+        true, -- Enabled
+        0, -- Time (seconds)
+    },
+    Cycles = {
+        Min = 1,
+        Max = 1,
+        WaitTime = 3,
+    },
+    CamShake = {
+        true, -- Enabled
+        {5, 15, 0.1, 1}, -- Shake values (don't change if you don't know)
+        1, -- Shake start distance (from Entity to you)
+    },
+    Jumpscare = {
+        false, -- Enabled ('false' if you don't want jumpscare)
+        {
+            Image1 = "rbxassetid://12925871963", -- Image1 url
+            Image2 = "rbxassetid://12925871963", -- Image2 url
+            Shake = false,
+            Sound1 = { 
+               11400679305, -- SoundId
+                { Volume = 1 }, -- Sound properties
+            },
+            Sound2 = {
+                10483837590, -- SoundId
+                { Volume = 0 }, -- Sound properties
+            },
+            Flashing = {
+                false, -- Enabled
+                Color3.fromRGB(15, 20, 129), -- Color
+            },
+            Tease = {
+                false, -- Enabled ('false' if you don't want tease)
+                Min = 1,
+                Max = 1,
+            },
+        },
+    },
+CustomDialog = {"You died to A-10..", "When you hear what door is break HIDE!!!", "Its not Rebounding.", "I really hope you follow the guide. "},  -- Custom death message (can be as long as you want)
+})
+
+------------------------
+
+-- Run the created entity
+Creator.runEntity(entity)
