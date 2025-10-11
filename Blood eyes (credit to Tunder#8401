@@ -1,0 +1,128 @@
+-- ---------- Blood Eyes (NqjaSMUX) ----------
+coroutine.wrap(function()
+    while true do
+        local sctm = math.random(30,210)
+        wait(sctm)
+
+        local ok, err = pcall(function()
+            local enableDamage = true
+            local repenttimes = 0
+            local deadeyescrucifix = false
+            local repentcomplete = false
+            local currentLoadedRoom = workspace.CurrentRooms[ReplicatedStorage.GameData.LatestRoom.Value]
+            local eyesObj = game:GetObjects("rbxassetid://12688498127")[1]
+            if not eyesObj then
+                warn("Blood Eyes: объект не загружен")
+                return
+            end
+
+            local num = math.floor(#currentLoadedRoom.Nodes:GetChildren() / 2)
+            local targetPart = (num == 0 and currentLoadedRoom.Base or currentLoadedRoom.Nodes[num])
+            if targetPart and targetPart:IsA("BasePart") then
+                safeSetCFrame(eyesObj, targetPart.CFrame + Vector3.new(0,7,0))
+            end
+
+            eyesObj.Parent = workspace
+            if eyesObj:FindFirstChild("Initiate") and eyesObj.Initiate.Play then pcall(function() eyesObj.Initiate:Play() end) end
+            task.wait(0.5)
+            if eyesObj:FindFirstChild("Attachment") and eyesObj.Attachment:FindFirstChild("Eyes") then eyesObj.Attachment.Eyes.Enabled = true end
+            if eyesObj:FindFirstChild("whisper") and eyesObj.whisper.Play then pcall(function() eyesObj.whisper:Play() end) eyesObj.whisper.Looped = true end
+
+            local function EyesHell()
+                local CameraShaker = safeRequire(ReplicatedStorage.CameraShaker)
+                if CameraShaker then
+                    local camara = workspace.CurrentCamera
+                    local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf) camara.CFrame = camara.CFrame * shakeCf end)
+                    camShake:Start()
+                    camShake:ShakeOnce(10,30,0.7,0.1)
+                end
+                local ts = game:GetService("TweenService")
+                wait(0.2)
+                local CameraShaker2 = safeRequire(ReplicatedStorage.CameraShaker)
+                if CameraShaker2 then
+                    local camara = workspace.CurrentCamera
+                    local camShake = CameraShaker2.new(Enum.RenderPriority.Camera.Value, function(shakeCf) camara.CFrame = camara.CFrame * shakeCf end)
+                    camShake:Start()
+                    camShake:ShakeOnce(2,30,5,2)
+                end
+                wait(3)
+                if eyesObj:FindFirstChild("Scream") and eyesObj.Scream.Play then pcall(function() eyesObj.Scream:Play() end) end
+                if eyesObj:IsA("Model") then
+                    local p = eyesObj:FindFirstChildWhichIsA("BasePart", true)
+                    if p then
+                        ts:Create(p, TweenInfo.new(5), {CFrame = p.CFrame - Vector3.new(0,12,0)}):Play()
+                    end
+                end
+                wait(7)
+                pcall(function() eyesObj:Destroy() end)
+            end
+
+            local hum = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+
+            local function IsVisible(part)
+                if not part or not part:IsA("BasePart") then return false end
+                local vec, found = workspace.CurrentCamera:WorldToViewportPoint(part.Position)
+                local onscreen = found and vec.Z > 0
+                local cfg = RaycastParams.new()
+                cfg.FilterType = Enum.RaycastFilterType.Blacklist
+                cfg.FilterDescendantsInstances = {part}
+                local cast = workspace:Raycast(part.Position, (Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("UpperTorso") and Players.LocalPlayer.Character.UpperTorso.Position or Vector3.new()) - part.Position, cfg)
+                local blocked = (cast and cast.Instance and cast.Instance.Parent ~= Players.LocalPlayer.Character)
+                return onscreen and not blocked
+            end
+
+            while true do
+                if workspace.CurrentRooms[ReplicatedStorage.GameData.LatestRoom.Value] ~= currentLoadedRoom then
+                    enableDamage = false
+                    task.wait(0.2)
+                    pcall(function() eyesObj:Destroy() end)
+                    break
+                end
+
+                if enableDamage then
+                    if IsVisible(eyesObj:FindFirstChildWhichIsA("BasePart", true)) and Players.LocalPlayer.Character and not Players.LocalPlayer.Character:FindFirstChild("Crucifix") and deadeyescrucifix == false then
+                        if Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+                            Players.LocalPlayer.Character.Humanoid.Health = Players.LocalPlayer.Character.Humanoid.Health - 10
+                        end
+                        wait(0.2)
+                    elseif IsVisible(eyesObj:FindFirstChildWhichIsA("BasePart", true)) and Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("Crucifix") and repenttimes < 5 and deadeyescrucifix == false then
+                        if eyesObj:FindFirstChild("Repent") and eyesObj.Repent.Play then pcall(function() eyesObj.Repent:Play() end) end
+                        if eyesObj:FindFirstChild("Attachment") and eyesObj.Attachment:FindFirstChild("Angry") then eyesObj.Attachment.Angry.Enabled = true end
+                        local CameraShaker3 = safeRequire(ReplicatedStorage.CameraShaker)
+                        if CameraShaker3 then
+                            local camara = workspace.CurrentCamera
+                            local camShake = CameraShaker3.new(Enum.RenderPriority.Camera.Value, function(shakeCf) camara.CFrame = camara.CFrame * shakeCf end)
+                            camShake:Start()
+                            camShake:ShakeOnce(5,50,0.7,0.2)
+                        end
+                        wait(0.7)
+                        repenttimes = repenttimes + 1
+                        if eyesObj:FindFirstChild("Attachment") and eyesObj.Attachment:FindFirstChild("Angry") then eyesObj.Attachment.Angry.Enabled = false end
+                        wait(0.4)
+                    elseif Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("Crucifix") and repenttimes == 5 and deadeyescrucifix == false then
+                        local cruc = Players.LocalPlayer.Character:FindFirstChild("Crucifix")
+                        if cruc and cruc.Handle then
+                            local hi = cruc.Handle:Clone()
+                            hi.Anchored = true
+                            hi.Parent = workspace
+                            pcall(function() hi:PivotTo(cruc.Handle.CFrame) end)
+                        end
+                        pcall(function() if cruc then cruc:Destroy() end end)
+                        EyesHell()
+                        enableDamage = false
+                        if hum and hum.Health <= 0 then
+                            ReplicatedStorage.GameStats["Player_" .. Players.LocalPlayer.Name].Total.DeathCause.Value = "Eyes"
+                            local conns = getconnections(ReplicatedStorage.Bricks.DeathHint.OnClientEvent)
+                            if conns and conns[1] then
+                                debug.setupvalue(conns[1].Function, 1, { "You died to the Eyes...", "They don't like to be stared at." })
+                            end
+                        end
+                    end
+                end
+                task.wait(0.2)
+            end
+        end)
+        if not ok then warn("Ошибка Blood Eyes: ", err) end
+    end
+end)()
+
