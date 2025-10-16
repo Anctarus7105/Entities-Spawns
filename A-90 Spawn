@@ -1,0 +1,163 @@
+-- Decompiled with the Synapse X Luau decompiler.
+local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors%20Entity%20Spawner/Source.lua"))()
+local l__TweenService__1 = game:GetService("TweenService");
+local l__LocalPlayer__2 = game.Players.LocalPlayer;
+local u1 = l__LocalPlayer__2.PlayerGui:WaitForChild("MainUI");
+local SpawnSound = Instance.new("Sound",workspace)
+SpawnSound.Name = "Ambience_A90"
+SpawnSound.SoundId = "rbxassetid://11924500496"
+SpawnSound.Volume = 2
+local NOOOOOOOSound = Instance.new("Sound",workspace)
+NOOOOOOOSound.Name = "Ambience_A90_NOOOOOOOOOOOO"
+NOOOOOOOSound.Volume = 0.6
+NOOOOOOOSound.SoundId = "rbxassetid://11926070708"
+local InstantKillHolder = "https://github.com/hmm1x/Doors-Entity-RBXM-s/blob/main/Invisible%20Entity.rbxm?raw=true"
+delay(0,function()
+	local distortionEffect = Instance.new("DistortionSoundEffect",NOOOOOOOSound)
+	distortionEffect.Enabled = true
+	distortionEffect.Priority = 0
+	distortionEffect.Level = 0.91
+end)
+local InstantKillentityTable = Spawner.createEntity({
+	CustomName = "A-90", -- Custom name of your entity
+	Model = InstantKillHolder,
+	Speed = 99999,
+	DelayTime = 0,
+	HeightOffset = 0,
+	CanKill = true,
+	KillRange = 9999999,
+	BackwardsMovement = true,
+	BreakLights = false,
+	FlickerLights = {
+		false, -- Enabled/Disabled
+	},
+	Cycles = {
+		Min = 1,
+		Max = 1,
+	},
+	CamShake = {
+		false, -- Enabled/Disabled
+	},
+	Jumpscare = {
+		false, -- Enabled/Disabled
+	},
+})
+InstantKillentityTable.Debug.OnDeath = function()
+	firesignal(game:GetService("ReplicatedStorage").EntityInfo.DeathHint.OnClientEvent, {"Oh... Hello.", "I'm surprised you found this place...", "It's pretty tedious just to get here, last time I checked.", "Anyways, what'd you die to?", "Oh. That one..","I hope that one isn't too confusing...","All i'll let you know is that it starts attacking after room 30.","Also, how did he come here?","Agh. You could call them A-90 since they start attacking after room A-90 in my floor.","Anyways, I hope you dont mind trying again, It would be helpful."}, "Yellow")
+end
+function ATTACK(p1, p2)
+	if p1.dead then
+		return;
+	end;
+	local l__Jumpscare_A90__3 = u1.Jumpscare.Jumpscare_A90;
+	l__Jumpscare_A90__3.BackgroundTransparency = 1;
+	l__Jumpscare_A90__3.Face.Visible = true;
+	l__Jumpscare_A90__3.FaceAngry.Visible = false;
+	l__Jumpscare_A90__3.Static.Visible = true;
+	l__Jumpscare_A90__3.Static2.Visible = true;
+	l__Jumpscare_A90__3.Static.ImageTransparency = 1;
+	l__Jumpscare_A90__3.Static2.ImageTransparency = 1;
+	game.SoundService.Main.Volume = 0;
+	l__Jumpscare_A90__3.Face.ImageColor3 = Color3.new(0, 0, 0);
+	l__Jumpscare_A90__3.Face.Position = UDim2.new(math.random(10, 90) / 100, 0, math.random(10, 90) / 100, 0);
+	l__Jumpscare_A90__3.Visible = true;
+	SpawnSound.SoundGroup = nil;
+	NOOOOOOOSound.SoundGroup = nil;
+	SpawnSound:Play();
+	task.wait(0.03333333333333333);
+	l__Jumpscare_A90__3.Face.ImageColor3 = Color3.new(1, 1, 1);
+	task.wait(0.48);
+	l__Jumpscare_A90__3.BackgroundTransparency = 0;
+	l__Jumpscare_A90__3.Face.Position = UDim2.new(0.5, 0, 0.49, 0);
+	task.wait(0.03333333333333333);
+	l__Jumpscare_A90__3.StopIcon.Visible = true;
+	l__Jumpscare_A90__3.BackgroundColor3 = Color3.new(0, 0, 0);
+	l__Jumpscare_A90__3.BackgroundTransparency = 1;
+	l__Jumpscare_A90__3.Static.ImageTransparency = 0.8;
+	l__Jumpscare_A90__3.Static2.ImageTransparency = 0.8;
+	local u2 = true;
+	local u3 = false;
+	local l__LookVector__4 = p1.cam.CFrame.LookVector;
+	task.delay(0.4, function()
+		l__Jumpscare_A90__3.StopIcon.Visible = false;
+		while u2 do
+			task.wait(0.03333333333333333);
+			l__Jumpscare_A90__3.Static.Position = UDim2.new(math.random(0, 100) / 100, 0, math.random(0, 100) / 100, 0);
+			l__Jumpscare_A90__3.Static.Rotation = math.random(0, 1) * 180;
+			l__Jumpscare_A90__3.Static2.Position = UDim2.new(math.random(0, 100) / 100, 0, math.random(0, 100) / 100, 0);
+			l__Jumpscare_A90__3.Static2.Rotation = math.random(0, 1) * 180;
+			l__Jumpscare_A90__3.Face.Position = UDim2.new(0.5, 0, 0.49, math.random(-1, 1));
+			l__Jumpscare_A90__3.FaceAngry.Position = UDim2.new(0.5 + math.random(-100, 100) / 50000, 0, 0.49 + math.random(-100, 100) / 30000, math.random(-1, 1));
+			local v4 = math.random(0, 1);
+			l__Jumpscare_A90__3.FaceAngry.ImageColor3 = Color3.new(1, v4, v4);
+			if not u3 then
+				game:GetService("UserInputService").InputBegan:Connect(function()
+					print("INPUT BEGAN")
+					u3 = true
+				end)
+				if (l__LookVector__4 - p1.cam.CFrame.LookVector).Magnitude > 0.4 then
+					print("LOOKED TOO FAR AWAY");
+					u3 = true;
+				end;
+				if p1.hum.MoveDirection.Magnitude > 0.4 then
+					print("KEPT MOVING");
+					u3 = true;
+				end;
+			end;		
+		end;
+	end);
+	task.wait(0.5);
+	l__Jumpscare_A90__3.BackgroundColor3 = Color3.new(0, 0, 0);
+	l__Jumpscare_A90__3.BackgroundTransparency = 0;
+	l__Jumpscare_A90__3.Static.ImageTransparency = 0;
+	l__Jumpscare_A90__3.Static2.ImageTransparency = 0.5;
+	task.wait(0.03333333333333333);
+	l__Jumpscare_A90__3.Face.ImageColor3 = Color3.new(1, 0, 0);
+	task.wait(0.03333333333333333);
+	l__Jumpscare_A90__3.Visible = false;
+	task.wait(0.08);
+	if u3 then
+		l__Jumpscare_A90__3.Visible = true;
+		NOOOOOOOSound:Play();
+		task.wait(0.03333333333333333);
+		l__Jumpscare_A90__3.Face.ImageColor3 = Color3.new(1, 1, 1);
+		task.wait(0.03333333333333333);
+		l__Jumpscare_A90__3.BackgroundTransparency = 0;
+		l__Jumpscare_A90__3.Static.ImageTransparency = 0;
+		l__Jumpscare_A90__3.Static2.ImageTransparency = 0.5;
+		task.wait(0.06666666666666667);
+		l__Jumpscare_A90__3.FaceAngry.ImageColor3 = Color3.new(1, 0, 0);
+		l__Jumpscare_A90__3.FaceAngry.Visible = true;
+		task.wait(0.06666666666666667);
+		l__Jumpscare_A90__3.FaceAngry.ImageColor3 = Color3.new(1, 1, 1);
+		l__Jumpscare_A90__3.Face.Visible = false;
+		l__Jumpscare_A90__3.FaceAngry.Size = UDim2.new(0.8, 0, 0.8, 0);
+		task.wait(0.75);
+		local DoDamage = true
+		if l__LocalPlayer__2.Character:FindFirstChildWhichIsA("Humanoid").Health < 91 then
+			Spawner.runEntity(InstantKillentityTable)	
+			DoDamage = false
+		end
+		if DoDamage then
+			l__LocalPlayer__2.Character:FindFirstChildWhichIsA("Humanoid"):TakeDamage(90)
+		end
+		task.wait(0.1);
+		l__Jumpscare_A90__3.FaceAngry.Visible = false;
+		l__Jumpscare_A90__3.BackgroundColor3 = Color3.new(1, 1, 1);
+		l__Jumpscare_A90__3.Static.ImageTransparency = 1;
+		l__Jumpscare_A90__3.Static2.ImageTransparency = 1;
+		task.wait(0.06666666666666667);
+		l__Jumpscare_A90__3.BackgroundColor3 = Color3.new(1, 0, 0);
+		task.wait(0.06666666666666667);
+		l__Jumpscare_A90__3.BackgroundColor3 = Color3.new(0, 0, 0);
+		task.wait(0.06666666666666667);
+	else
+		SpawnSound:Stop();
+		l__Jumpscare_A90__3.BackgroundTransparency = 1;
+		
+	end;
+	u2 = false;
+	game.SoundService.Main.Volume = 1;
+	l__Jumpscare_A90__3.Visible = false;
+end;
+ATTACK(require(l__LocalPlayer__2.PlayerGui.MainUI.Initiator.Main_Game))
