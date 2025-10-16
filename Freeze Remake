@@ -1,0 +1,43 @@
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/vct0721/Doors-Stuff/main/Other/CustomEyeSpawnerSource.lua"))()
+
+local CustomEyeSpawnerConfig = { 
+    CustomName = "Freeze",
+    Model = "https://github.com/Anctarus7105/Random-Files/blob/main/FreezeNew.rbxm",
+    DelayTime = 0.7,
+    HeightOffset = 0,
+    CanKill = true,
+
+    DamageConfig = {
+        DamageAmount = 0,
+        DamageOnLook = 0,
+        DamageOnNotLooking = true,
+        DamageOnEntitySeeing = false,
+    },
+
+    KillRangeConfig = {
+        IsEnabled = true,
+        Range = 7,
+    },
+
+    TeleportConfig = {
+        Forced = true,
+        Min = 0,
+        Max = 0,
+    },
+
+    DeathConfig = { 
+        Type = "Blue",
+        Hints = {
+            "Freeze kill you...", 
+            "Try not to get too close to him!", 
+            "I hope you follow the guide!", 
+            "Next time, don't try to was so close to him.", 
+            "The Freeze are always watching.", 
+            "Maybe look not look to him next time?", 
+            "Surprise! You are not bad guy if u not skip thats messages."
+        },
+        Cause = "Freeze Remaek"
+    }
+}
+
+spawner.spawnEntity(FreezeRemakeSpawnerConfig)
