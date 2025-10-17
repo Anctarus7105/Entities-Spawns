@@ -1,0 +1,142 @@
+---====== Load spawner ======---
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+---====== Create entity ======---
+local entity = spawner.Create({
+	Entity = {
+		Name = "Busher",
+		Asset = "https://github.com/Anctarus7105/Random-Files/blob/main/BusherUpdate.rbxm",
+		HeightOffset = 0
+	},
+	Lights = {
+		Flicker = {
+			Enabled = true,
+			Duration = 0
+		},
+		Shatter = true,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = true
+	},
+	CameraShake = {
+		Enabled = true,
+		Range = 10,
+		Values = {1.5, 20, 0.1, 1}
+	},
+	Movement = {
+		Speed = 115,
+		Delay = 7.5,
+		Reversed = true
+	},
+	Rebounding = {
+		Enabled = true,
+		Type = "Ambush",
+		Min = 8,
+		Max = 8,
+		Delay = 0
+	},
+	Damage = {
+		Enabled = true,
+		Range = 25,
+		Amount = 100
+	},
+	Crucifixion = {
+		Enabled = true,
+		Range = 5,
+		Resist = false,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding",
+		Hints = {"Death", "Hints", "Go", "Here"},
+		Cause = ""
+	}
+})
+
+---====== Debug callbacks ======---
+
+entity:SetCallback("OnSpawned", function()
+	print("Entity has spawned")
+
+	-- Play sound
+	local cue2 = Instance.new("Sound")
+	cue2.Parent = game.Workspace
+	cue2.Name = "Spawn"
+	cue2.SoundId = "97712107114692"
+	cue2.Volume = 1.8
+	cue2.PlaybackSpeed = 0.8
+	cue2:Play()
+
+	-- Lighting effects
+	local lighting = game.Lighting.MainColorCorrection
+	lighting.TintColor = Color3.fromRGB(73, 185, 185)
+	lighting.Contrast = 0
+	lighting.Saturation = 0
+
+	local TweenService = game:GetService("TweenService")
+	TweenService:Create(lighting, TweenInfo.new(5), {Contrast = 0}):Play()
+	TweenService:Create(lighting, TweenInfo.new(5), {Saturation = 0}):Play()
+	TweenService:Create(lighting, TweenInfo.new(5), {TintColor = Color3.fromRGB(0, 0, 0)}):Play()
+
+	-- Camera shake
+	local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+	local camera = game.Workspace.CurrentCamera
+	local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+		camera.CFrame = camera.CFrame * shakeCf
+	end)
+	camShake:Start()
+	camShake:ShakeOnce(10, 3, 0.1, 6, 2, 0.5)
+
+	-- Random delay
+	local delayOptions = {"2", "2.5", "1.5", "1", "2.1"}
+	local randomDelay = delayOptions[math.random(1, #delayOptions)]
+	wait(tonumber(randomDelay))
+end)
+
+entity:SetCallback("OnStartMoving", function()
+	print("Entity has started moving")
+end)
+
+entity:SetCallback("OnEnterRoom", function(room, firstTime)
+	if firstTime then
+		print("Entity has entered room: " .. room.Name .. " for the first time")
+	else
+		print("Entity has entered room: " .. room.Name .. " again")
+	end
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight)
+	if lineOfSight then
+		print("Player is looking at entity")
+	else
+		print("Player view is obstructed by something")
+	end
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+	if startOfRebound then
+		print("Entity has started rebounding")
+	else
+		print("Entity has finished rebounding")
+	end
+end)
+
+entity:SetCallback("OnDespawning", function()
+	print("Entity is despawning")
+end)
+
+entity:SetCallback("OnDespawned", function()
+	print("Entity has despawned")
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+	if newHealth == 0 then
+		print("Entity has killed the player")
+	else
+		print("Entity has damaged the player")
+	end
+end)
+
+---====== Run entity ======---
+entity:Run()
