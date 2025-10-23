@@ -3,7 +3,7 @@
 -- getting SoundService
 local SoundService = game:GetService("SoundService")
 
--- Создаём звук
+-- creating sound
 local sound = Instance.new("Sound")
 sound.Name = "LoopedSound"
 sound.SoundId = "rbxassetid://9113731836" -- u id of sound here
