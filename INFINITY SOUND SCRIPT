@@ -1,0 +1,22 @@
+--Sound
+
+-- getting SoundService
+local SoundService = game:GetService("SoundService")
+
+-- Создаём звук
+local sound = Instance.new("Sound")
+sound.Name = "LoopedSound"
+sound.SoundId = "rbxassetid://9113731836" -- u id of sound here
+sound.Volume = 2.3
+sound.Parent = SoundService
+
+-- starting play sound
+sound:Play()
+
+-- when gone – start again
+sound.Ended:Connect(function()
+    sound:Play()
+end)
+
+--Caption
+firesignal(game.ReplicatedStorage.Bricks.Caption.OnClientEvent,"Infinity sound script succesfully loaded!")
