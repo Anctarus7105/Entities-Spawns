@@ -100,7 +100,7 @@ end
     NOTE: By overwriting 'OnUseCrucifix', the default crucifixion will be ignored and this function will be called instead
  
     entity.Debug.OnUseCrucifix = function()
-        print("Custom crucifixion script here")
+        print("huh")
     end
 ]]--
  
