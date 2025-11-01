@@ -1,0 +1,90 @@
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Voor-Pr00/Fogroom/refs/heads/main/Wwwhyyyyil"))()
+local dmg = true
+local entity = spawner.Create({
+	Entity = {
+		Name = "Silence",
+		Asset = "rbxassetid://11125801866",
+		HeightOffset = 0
+	},
+	Lights = {
+		Flicker = {
+			Enabled = false,
+			Duration = 1
+		},
+		Shatter = true,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = false,
+		Range = 100,
+		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	},
+	Movement = {
+		Speed = 0.001,
+		Delay = 0,
+		Reversed = false
+	},
+	Rebounding = {
+		Enabled = false,
+		Type = "Ambush", -- "Blitz"
+		Min = 1,
+		Max = 1,
+		Delay = 2
+	},
+	Damage = {
+		Enabled = false,
+		Range = 40,
+		Amount = 125
+	},
+	Crucifixion = {
+		Enabled = true,
+		Range = 60,
+		Resist = false,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding", -- "Curious"
+		Hints = {"Death", "Hints", "Go", "Here"},
+		Cause = ""
+	}
+})
+
+---====== Debug entity ======---
+
+entity:SetCallback("OnSpawned", function()
+
+function GetRoom()
+        local gruh = workspace.CurrentRooms
+        return gruh:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value)
+end
+
+local s = game.Workspace.uer
+local ss = game.Workspace.uer:FindFirstChildWhichIsA("BasePart") or game.Workspace.uer:FindFirstChildWhichIsA("Part")
+ss.CFrame = GetRoom():WaitForChild("RoomEntrance").CFrame * CFrame.new(0,9,-15)
+
+local ultimaroom = game.ReplicatedStorage.GameData.LatestRoom.Value
+local plr = game.Players.LocalPlayer
+local chr = plr.Character or plr.CharacterAdded:Wait()
+
+while true do
+wait(1)
+if dmg == true and not chr:GetAttribute("Crouching") then
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("I Must Crouch.",true)
+game.Players.LocalPlayer.Character.Humanoid.Health -= 6
+game:GetService("ReplicatedStorage").GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Silence"
+end
+if game.Workspace:FindFirstChild("RepentanceNEW") or ultimaroom ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+s:Destroy()
+dmg = false
+
+break end
+end
+
+end)
+
+---====== Run entity ======---
+
+entity:Run()
