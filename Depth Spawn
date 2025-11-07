@@ -10,7 +10,7 @@ local entity = Creator.createEntity({
     BreakLights = true,
     FlickerLights = {
         true, -- Enabled
-        5, -- Time (seconds)
+        1.7, -- Time (seconds)
     },
     Cycles = {
         Min = 5,
