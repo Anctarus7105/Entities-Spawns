@@ -1,0 +1,81 @@
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+---====== Create entity ======---
+
+local entity = spawner.Create({
+	Entity = {
+		Name = "Nerd",
+		Asset = "https://github.com/Anctarus7105/Random-Files/blob/main/Nerd.rbxm",
+		HeightOffset = 0
+	},
+	Lights = {
+		Flicker = {
+			Enabled = true,
+			Duration = 1.5
+		},
+		Shatter = false,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = false,
+		Range = 55,
+		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	},
+	Movement = {
+		Speed = 0.0001,
+		Delay = 0,
+		Reversed = true
+	},
+	Rebounding = {
+		Enabled = true,
+		Type = "Ambush", -- "Blitz"
+		Min = 1,
+		Max = 1,
+		Delay = 0
+	},
+	Damage = {
+		Enabled = true,
+		Range = 0,
+		Amount = 0
+	},
+	Crucifixion = {
+		Enabled = true,
+		Range = 5,
+		Resist = false,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding", -- "Curious"
+		Hints = {"Death", "Hints", "Go", "Here"},
+		Cause = ""
+	}
+})
+
+---====== Debug entity ======---
+
+entity:SetCallback("OnSpawned", function()
+    print("Entity has spawned")
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+game.Workspace.Nerd:Destroy()
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+	if newHealth == 100 then
+		print("Entity has killed the player")
+	else
+		print("Entity has damaged the player")
+		game.Players.LocalPlayer.Character.Humanoid:TakeDamage(0)
+        game:GetService("ReplicatedStorage").GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Nerd"
+	end
+end)
+
+---====== Run entity ======---
+
+entity:Run()
+
+end
+end
+end)
