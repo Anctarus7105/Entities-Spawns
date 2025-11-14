@@ -1,0 +1,280 @@
+--[[ 
+    LoadCustomInstance(id: number, parent: Instance?)
+    - Instantly loads a Roblox model from an asset ID
+    - Force-loads into workspace or given parent
+    - Returns the instance or nil if failed
+
+    Created by Francisco's Executor Core™
+]]
+
+
+function LoadCustomInstance(assetId, parent)
+    local model
+
+    -- Retry system: keep trying until model is loaded
+    while wait() and not model do
+        print("🔄 Trying to load model with Asset ID: " .. assetId)  -- Debug message
+
+        -- Attempt to load the model from the asset ID
+        local success, result = pcall(function()
+            return game:GetObjects("rbxassetid://" .. assetId)[1]
+        end)
+
+        if success and result then
+            model = result
+            model.Parent = parent or workspace
+
+            -- Remove unwanted scripts from the model (deep clean)
+            for _, obj in ipairs(model:GetDescendants()) do
+                if obj:IsA("Script") or obj:IsA("LocalScript") then
+                    obj:Destroy()
+                end
+            end
+
+            -- Apply internal tag to mark the model as loaded by the executor
+            pcall(function()
+                model:SetAttribute("LoadedByExecutor", true)
+            end)
+
+            print("✅ [LoadCustomInstance]: Model " .. model.Name .. " successfully loaded into " .. model.Parent:GetFullName())  -- Success message with emoji
+        else
+            print("❌ [LoadCustomInstance]: Failed to load model ID " .. tostring(assetId) .. ". Retrying... 🔄")  -- Failure message with retry info
+            wait(0.5)  -- Short wait to avoid overwhelming the system with continuous calls
+        end
+    end
+
+    return model
+end
+
+-- Sound from GitHub
+function GetGitSoundID(GithubSnd, SoundName)
+    local FileName = tostring(SoundName)
+    if not isfile("customObject_Sound_"..FileName..".mp3") then
+        writefile("customObject_Sound_"..FileName..".mp3", game:HttpGet(GithubSnd))
+    end
+    return (getcustomasset or getsynasset)("customObject_Sound_"..FileName..".mp3")
+end
+
+-- Global Variables
+local gotRippersBadge = false
+local killed = false
+local Plr = game.Players.LocalPlayer
+local ReSt = game.ReplicatedStorage
+local val = 80
+local events = require(game.ReplicatedStorage.ClientModules.Module_Events)
+local cameraShaker = require(game.ReplicatedStorage.CameraShaker)
+local camera = workspace.CurrentCamera
+
+-- Camera Shaker Setup
+local camShake = cameraShaker.new(Enum.RenderPriority.Camera.Value, function(cf)
+    camera.CFrame = camera.CFrame * cf
+end)
+camShake:Start()
+
+-- Helper to calculate Time
+function GetTime(Distance, Speed)
+    return Distance / Speed
+end
+
+local DEF_SPEED = 99999
+
+-- The HORROR Script
+local function THEHORROR()
+    local breakMove = false
+    local ambruhspeed = 75
+    local storer = ambruhspeed
+    local ambushheight = Vector3.new(0, 10, 0)
+    local redtweeninfo = TweenInfo.new(3)
+    local redinfo = {Color = Color3.new(1, 0, 0.133333)}
+
+    -- Camera Shake and Lights
+    camShake:Shake(cameraShaker.Presets.Earthquake)
+    for _, v in pairs(workspace.CurrentRooms:GetDescendants()) do
+        if v:IsA("Light") then
+            game.TweenService:Create(v, redtweeninfo, redinfo):Play()
+            if v.Parent.Name == "LightFixture" then
+                game.TweenService:Create(v.Parent, redtweeninfo, redinfo):Play()
+            end
+        end
+    end
+
+    -- Load Ambush Model
+    local s = LoadCustomInstance("13385960603", workspace)
+    s.Parent = workspace
+    local ambush = s:WaitForChild("Ripe")
+    ambush.Ambush.Volume = 0
+    ambush.Ambush.PlaybackSpeed = 0.37
+
+    local amb = ambush.Spawn:Clone()
+    amb.Parent = workspace
+    amb.TimePosition = 0
+    amb:Play()
+    amb.Volume = 6
+
+    -- 👁 Target detection
+    local function canSeeTarget(target, size)
+        if killed then return end
+        local origin = ambush.Position
+        local direction = (target.HumanoidRootPart.Position - origin).unit * size
+        local ray = Ray.new(origin, direction)
+        local hit = workspace:FindPartOnRay(ray, ambush)
+        if hit then
+            if hit:IsDescendantOf(target) then
+                killed = true
+                return true
+            end
+        else
+            return false
+        end
+    end
+
+    -- 👻 Shaker system + Jumpscare
+    spawn(function()
+        while ambush do wait(0.2)
+            local v = game.Players.LocalPlayer
+            if v.Character and not v.Character:GetAttribute("Hiding") then
+                if canSeeTarget(v.Character, 50) then
+                    breakMove = true
+                    local gui = Instance.new("ScreenGui", v:WaitForChild("PlayerGui"))
+                    gui.Name = "Noise"
+                    gui.IgnoreGuiInset = true
+
+                    local img = Instance.new("ImageLabel", gui)
+                    img.Size = UDim2.new(1, 0, 1, 0)
+                    img.BackgroundTransparency = 1
+                    img.Image = "rbxassetid://236542974"
+                    img.ImageTransparency = 1
+
+                    coroutine.wrap(function()
+                        local char = v.Character
+                        local ripper = workspace.Death:FindFirstChild("Ripe")
+                        local clone = ripper and ripper:Clone()
+                        if not clone then return end
+                        clone.Parent = workspace
+                        clone.Position = ripper.Position
+                        for _, x in ipairs(clone:GetDescendants()) do
+                            if x:IsA("ParticleEmitter") then
+                                spawn(function()
+                                    x.Rate = 9999
+                                    wait(0.25)
+                                    x.TimeScale = 0.0
+                                end)
+                            elseif x:IsA("Sound") then
+                                x.Volume = 0
+                            end
+                        end
+                        ripper:Destroy()
+                        local static = Instance.new("Sound", workspace)
+                        static.SoundId = "rbxassetid://372770465"
+                        static.Volume = 10
+                        static.Pitch = 0.7
+
+                        local anchor = Instance.new("Part", workspace)
+                        anchor.Name = "ripperAnchor"
+                        anchor.Anchored = true
+                        anchor.CanCollide = false
+                        anchor.Transparency = 1
+                        anchor.CFrame = workspace.CurrentCamera.CFrame
+
+                        char:FindFirstChild("HumanoidRootPart").Anchored = true
+                        workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
+                        local viewLoop = true
+
+                        spawn(function()
+                            while viewLoop do
+                                workspace.CurrentCamera.CFrame = anchor.CFrame
+                                img.Image = "rbxassetid://"..({8482795900,236542974,184251462,236777652})[math.random(1,4)]
+                                game["Run Service"].RenderStepped:Wait()
+                            end
+                        end)
+
+                        game.TweenService:Create(anchor, TweenInfo.new(0.3), {
+                            CFrame = CFrame.lookAt(anchor.Position, clone.Position)
+                        }):Play()
+                        wait(1)
+                        game.TweenService:Create(img, TweenInfo.new(2), {ImageTransparency = 0}):Play()
+                        static:Play()
+                        wait(2)
+                        viewLoop = false
+                        game.TweenService:Create(img, TweenInfo.new(1), {ImageTransparency = 1}):Play()
+                        static:Destroy()
+                        char:FindFirstChild("HumanoidRootPart").Anchored = false
+                        char:FindFirstChildWhichIsA("Humanoid"):TakeDamage(100)
+                    end)()
+                end
+            end
+
+            if v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                if (ambush.Position - v.Character.HumanoidRootPart.Position).Magnitude < val then
+                    camShake:ShakeOnce(15, 25, 0, 2, 1, 6)
+                end
+            end
+
+            if breakMove then break end
+        end
+    end)
+
+    game.Debris:AddItem(amb, 10)
+    ambush.Ambush:Stop()
+    ambush.Ambush.SoundId = "rbxassetid://6963538865"
+    ambush.Ambush.Volume = 10
+    wait(8)
+    ambush.Ambush:Play()
+    game.TweenService:Create(ambush.Ambush, TweenInfo.new(6), {Volume = 0.8}):Play()
+
+    local gruh = workspace.CurrentRooms
+    ambruhspeed = DEF_SPEED
+
+    for i = 1, ReSt.GameData.LatestRoom.Value do
+        local room = gruh:FindFirstChild(i)
+        if room and room:FindFirstChild("Nodes") then
+            for _, waypoint in ipairs(room.Nodes:GetChildren()) do
+                if breakMove then break end
+                local dist = (ambush.Position - waypoint.Position).Magnitude
+                local t = game.TweenService:Create(ambush, TweenInfo.new(GetTime(dist, ambruhspeed)), {CFrame = waypoint.CFrame + ambushheight})
+                t:Play()
+                t.Completed:Wait()
+                if room.Name == tostring(ReSt.GameData.LatestRoom.Value) then
+                    room.Door.ClientOpen:FireServer()
+                end
+            end
+        end
+    end
+
+    local slam = Instance.new("Sound", ambush)
+    slam.Volume = 10
+    slam.SoundId = "rbxassetid://1837829565"
+    workspace.CurrentRooms[ReSt.GameData.LatestRoom.Value]:WaitForChild("Door").ClientOpen:FireServer()
+    camShake:Shake(cameraShaker.Presets.Explosion)
+    slam:Play()
+
+    wait(1)
+    ambush.Anchored = false
+    ambush.CanCollide = false
+    game.Debris:AddItem(s, 5)
+
+    if not gotRippersBadge then
+        gotRippersBadge = true
+        getgenv().Title = "Torn Apart"
+        getgenv().Description = "Don't leave too early.."
+        getgenv().Reason = "Encounter Ripper."
+        getgenv().BadgeId = 2129409220
+        getgenv().Category = 10
+
+        local Unlock = require(Plr.PlayerGui.MainUI.Initiator.Main_Lobby.RemoteListener.Modules.AchievementUnlock)
+        local Achievements = debug.getupvalue(Unlock, 1)
+        for _, v in pairs(require(ReSt.Achievements)) do
+            v.Title = getgenv().Title
+            v.Desc = getgenv().Description
+            v.Reason = getgenv().Reason
+            v.BadgeId = getgenv().BadgeId
+            v.Category = getgenv().Category
+        end
+        spawn(function()
+            Unlock(nil, "Join")
+        end)
+    end
+end
+
+-- 💀 Force call THEHORROR even if Death already exists
+pcall(THEHORROR)
