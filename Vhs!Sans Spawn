@@ -3,14 +3,14 @@ local Creator = loadstring(game:HttpGet("https://raw.githubusercontent.com/Regul
 local entity = Creator.createEntity({
     CustomName = Vhs!Sans -- Custom name of your entity
     Model = 18454349540,
-    Speed = 295, -- Percentage, 100 = default Rush speed
-    DelayTime = 4, -- Time before starting cycles (seconds)
+    Speed = 15, -- Percentage, 100 = default Rush speed
+    DelayTime = 1, -- Time before starting cycles (seconds)
     HeightOffset = 0,
     CanKill = true,
     BreakLights = true,
     FlickerLights = {
-        false, -- Enabled
-        0, -- Time (seconds)
+        true, -- Enabled
+        2.3, -- Time (seconds)
     },
     Cycles = {
         Min = 1,
