@@ -22,8 +22,8 @@ local entity = spawner.Create({
 		    Color = Color3.fromRGB(255, 0, 0), -- Color3.new
 		    CameraShake = {10, 5, 2, 5}, -- Magnitude, Roughness, FadeIn, FadeOut
 		    Sound = {
-		        SoundId = "rbxassetid://0",
-		        Volume = 1
+		        SoundId = "rbxassetid://9125713501",
+		        Volume = 1.3
 		    },
 		    Duration = 0,
 		    FadeIn = 1,
