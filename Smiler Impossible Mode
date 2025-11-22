@@ -1,0 +1,94 @@
+
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Voor-Pr00/Fogroom/refs/heads/main/Roomm"))()
+---====== Create entity ======---
+
+local entity = spawner.Create({
+	Entity = {
+		Name = "Smiler",
+		Asset = "https://github.com/PABMAXICHAC/doors-monsters-models/blob/main/Smiler.rbxm?raw=true",
+		HeightOffset = 0
+	},
+	Lights = {
+		Flicker = {
+			Enabled = true,
+			Duration = 8.7
+		},
+		Shatter = true,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = true,
+		Range = 95,
+		Values = {15.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	},
+	Movement = {
+		Speed = 870,
+		Delay = 10,
+		Reversed = false
+	},
+	Rebounding = {
+		Enabled = true,
+		Type = "Ambush",
+		Min = 2,
+		Max = 13,
+		Delay = 2.8
+	},
+	Damage = {
+		Enabled = true,
+		Range = 85,
+		Amount = 100
+	},
+	Crucifixion = {
+		Enabled = true,
+		Range = 85,
+		Resist = false,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding", -- "Curious"
+		Hints = {"Death", "Hints", "Go", "Here"},
+		Cause = ""
+	}
+})
+
+---====== Debug entity ======---
+
+entity:SetCallback("OnSpawned", function()
+    print("Entity has spawned")
+end)
+
+entity:SetCallback("OnEnterRoom", function(room, firstTime)
+    if firstTime == true then
+        print("Entity has entered room: ".. room.Name.. " for the first time")
+    else
+        print("Entity has entered room: ".. room.Name.. " again")
+end
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight)
+		print("Player is looking at entity")
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+end)
+
+entity:SetCallback("OnDespawning", function()
+    print("Entity is despawning")
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+	if newHealth == 0 then
+		print("Entity has killed the player")
+	else
+		print("Entity has damaged the player")
+end
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Voor-Pr00/Jumpscare/refs/heads/main/Smiler"))()
+game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Smiler"
+end)
+
+---====== Run entity ======---
+
+entity:Run()
