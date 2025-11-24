@@ -1,3 +1,14 @@
+-- Sound
+local cue2 = Instance.new("Sound")
+	cue2.Parent = game.Workspace
+	cue2.Name = "Sound"
+	cue2.SoundId = "rbxassetid://9125713501"
+	cue2.Volume = 2.3
+	cue2.PlaybackSpeed = 1
+	cue2:Play()
+wait(1)
+
+-- Entity
 ---====== Load spawner ======---
 
 local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
