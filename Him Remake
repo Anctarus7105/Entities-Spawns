@@ -1,4 +1,5 @@
 -- Sound
+wait(0)
 local cue2 = Instance.new("Sound")
 	cue2.Parent = game.Workspace
 	cue2.Name = "Sound"
@@ -9,6 +10,7 @@ local cue2 = Instance.new("Sound")
 wait(1)
 
 -- Entity
+wait(0.1)
 ---====== Load spawner ======---
 
 local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
