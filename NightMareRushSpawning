@@ -13,7 +13,7 @@ local entity = spawner.Create({
 	Lights = {
 		Flicker = {
 			Enabled = true,
-			Duration = 1.9
+			Duration = 0.7
 		},
 		Shatter = true,
 		Repair = false
@@ -27,7 +27,7 @@ local entity = spawner.Create({
 		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
 	},
 	Movement = {
-		Speed = 490,
+		Speed = 395,
 		Delay = 3,
 		Reversed = false
 	},
