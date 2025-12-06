@@ -7,7 +7,7 @@ local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Regul
 local entity = spawner.Create({
 	Entity = {
 		Name = "Silence",
-		Asset = "https://github.com/plamen6789/CustomDoorsMonsters/raw/main/Silence.rbxm",
+		Asset = "rbxassetid://11535812658",
 		HeightOffset = 0
 	},
 	Lights = {
