@@ -7,7 +7,7 @@ local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Regul
 local entity = spawner.Create({
 	Entity = {
 		Name = "Deer God",
-		Asset = "https://github.com/Anctarus7105/Random-Files/raw/main/DeerGodOld.rbxm",
+		Asset = "rbxassetid://12262883448",
 		HeightOffset = 0
 	},
 	Lights = {
@@ -51,7 +51,7 @@ local entity = spawner.Create({
 	},
 	Death = {
 		Type = "Guiding", -- "Curious"
-		Hints = {"You Died To Deer God", "Dont look at him.", "and you survive!", "byee :]"},
+		Hints = {"You Died To Deer God", "Dont look at him.", "I hope you follow the guide.", "Remember it all!"},
 		Cause = "Deer God"
 	}
 })
@@ -96,6 +96,16 @@ end)
 
 entity:SetCallback("OnDespawned", function()
     print("Entity has despawned")
+---====== Load achievement giver ======---
+local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+
+---====== Display achievement ======---
+achievementGiver({
+    Title = "Last Chance To Look Away",
+    Desc = "Why you are running?",
+    Reason = "Survive the rare Entity called Dear God",
+    Image = "rbxassetid://11395249132"
+})
 end)
 
 entity:SetCallback("OnDamagePlayer", function(newHealth)
@@ -112,7 +122,7 @@ DEVELOPER NOTE:
 By overwriting 'CrucifixionOverwrite' the default crucifixion callback will be replaced with your custom callback.
 
 entity:SetCallback("CrucifixionOverwrite", function()
-    print("Custom crucifixion callback")
+    print("Crucifixed Dear God")
 end)
 
 ]]--
