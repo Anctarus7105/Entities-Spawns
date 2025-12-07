@@ -1,0 +1,40 @@
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/vct0721/Doors-Stuff/main/Other/CustomEyeSpawnerSource.lua"))()
+
+local CustomEyeSpawnerConfig = { 
+    CustomName = "Eyes",
+    Model = "https://github.com/Anctarus7105/Random-Files/blob/main/GreyEyes.rbxm",
+    DelayTime = 0.7,
+    HeightOffset = 0,
+    CanKill = true,
+
+    DamageConfig = {
+        DamageAmount = 35,
+        DamageOnLook = 35,
+        DamageOnNotLooking = false,
+        DamageOnEntitySeeing = false,
+    },
+
+    KillRangeConfig = {
+        IsEnabled = true,
+        Range = 500,
+    },
+
+    TeleportConfig = {
+        Forced = false,
+        Min = 0,
+        Max = 0,
+    },
+
+    DeathConfig = { 
+        Type = "Blue",
+        Hints = {
+            "You died to Eyes...", 
+            "Not look at this eyes its so hard", 
+            "I hope you follow the guide!", 
+            "Next time don't try to look at that eyes"
+        },
+        Cause = "Eyes"
+    }
+}
+
+spawner.spawnEntity(CustomEyesSpawnerConfig)
