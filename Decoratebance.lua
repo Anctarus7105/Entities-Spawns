@@ -4,15 +4,6 @@ local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Regul
 
 ---====== Create entity ======---
 
-local cue2 = Instance.new("Sound")
-	cue2.Parent = game.Workspace
-	cue2.Name = "Sound"
-	cue2.SoundId = "rbxassetid://1546975842"
-	cue2.Volume = 2.5
-	cue2.PlaybackSpeed = 0.60001
-	cue2:Play()
-wait(8)
-
 local entity = spawner.Create({
 	Entity = {
 		Name = "Decoratebance",
@@ -69,6 +60,14 @@ local entity = spawner.Create({
 
 entity:SetCallback("OnSpawned", function()
     print("Entity has spawned")
+local cue2 = Instance.new("Sound")
+	cue2.Parent = game.Workspace
+	cue2.Name = "Sound"
+	cue2.SoundId = "rbxassetid://1546975842"
+	cue2.Volume = 2.5
+	cue2.PlaybackSpeed = 0.60001
+	cue2:Play()
+wait(8)
 end)
 
 entity:SetCallback("OnStartMoving", function()
