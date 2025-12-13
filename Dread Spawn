@@ -1,56 +1,153 @@
-local Creator = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors%20Entity%20Spawner/Source.lua"))()
+local Dreadcolor = Instance.new("ColorCorrectionEffect",game.Lighting) game.Debris:AddItem(Dreadcolor,0) 
+    Dreadcolor.Name = "Dreda" 
+    Reboundcolor.TintColor = Color3.fromRGB(69, 69, 69) Dreadcolor.Saturation = -0.7 Dreadcolor.Contrast = 0.2 
+    game.TweenService:Create(Dreadcolor,TweenInfo.new(15),{TintColor = Color3.fromRGB(255, 255, 255),Saturation = 0, Contrast = 0}):Play()
 
-local entity = Creator.createEntity({
-    CustomName = "Dread", -- Custom name of your entity
-    Model = 12409937936,
-    Speed = 175, -- Percentage, 100 = default Rush speed
-    DelayTime = 5, -- Time before starting cycles (seconds)
-    HeightOffset = 0,
-    CanKill = true,
-    BreakLights = true,
-    FlickerLights = {
-        true, -- Enabled
-        0.8, -- Time (seconds)
-    },
-    Cycles = {
-        Min = 1,
-        Max = 1,
-        WaitTime = 3,
-    },
-    CamShake = {
-        true, -- Enabled
-        {5, 15, 0.1, 1}, -- Shake values (don't change if you don't know)
-        1, -- Shake start distance (from Entity to you)
-    },
-    Jumpscare = {
-        false, -- Enabled ('false' if you don't want jumpscare)
-        {
-            Image1 = "rbxassetid://11036572035", -- Image1 url
-            Image2 = "rbxassetid://11036572035", -- Image2 url
-            Shake = false,
-            Sound1 = { 
-               5263560566, -- SoundId
-                { Volume = 1 }, -- Sound properties
-            },
-            Sound2 = {
-                5263560566, -- SoundId
-                { Volume = 0 }, -- Sound properties
-            },
-            Flashing = {
-                false, -- Enabled
-                Color3.fromRGB(70, 25, 0), -- Color
-            },
-            Tease = {
-                false, -- Enabled ('false' if you don't want tease)
-                Min = 1,
-                Max = 1,
-            },
-        },
-    },
-CustomDialog = {"You died to Dread..", "When the clock spawn in room, Hide!", "Its not Rebound.", "Hope you follow the guide. "},  -- Custom death message (can be as long as you want)
+local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+local camara = game.Workspace.CurrentCamera
+local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+ camara.CFrame = camara.CFrame * shakeCf
+end)
+camShake:Start()
+camShake:ShakeOnce(10,3,0.1,6,2,0.5)
+
+function GitAud(soundgit,filename)
+    SoundName=tostring(SoundName)
+    local url=soundgit
+    local FileName = filename
+    writefile(FileName..".mp3", game:HttpGet(url))
+    return (getcustomasset or getsynasset)(FileName..".mp3")
+end
+
+function CustomGitSound(soundlink, vol, filename)
+    local Sound = Instance.new("Sound")
+    Sound.SoundId = GitAud(soundlink, filename)
+    Sound.Parent = workspace
+    Sound.Volume = 3
+    Sound:Play()
+end
+
+CustomGitSound("https://github.com/Anctarus7105/Custom-Sounds/raw/main/ClockSound.mp3", 1, "ClockSound")
+wait(0)
+---====== Load spawner ======---
+
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+---====== Create entity ======---
+
+local entity = spawner.Create({
+	Entity = {
+		Name = "Dread",
+		Asset = "rbxassetid://15033250482",
+		HeightOffset = 0
+	},
+	Lights = {
+		Flicker = {
+			Enabled = true,
+			Duration = 0
+		},
+		Shatter = true,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = true,
+		Range = 35,
+		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	},
+	Movement = {
+		Speed = 0,
+		Delay = 0,
+		Reversed = false
+	},
+	Rebounding = {
+		Enabled = true,
+		Type = "Ambush", -- "Blitz"
+		Min = 0,
+		Max = 0,
+		Delay = 0
+	},
+	Damage = {
+		Enabled = true,
+		Range = 40,
+		Amount = 125
+	},
+	Crucifixion = {
+		Enabled = true,
+		Range = 40,
+		Resist = false,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding", -- "Curious"
+		Hints = {"", "", "", ""},
+		Cause = "Dread"
+	}
 })
 
-------------------------
+---====== Debug entity ======---
 
--- Run the created entity
-Creator.runEntity(entity)
+entity:SetCallback("OnSpawned", function()
+    print("Entity has spawned")
+loadstring(game:HttpGet("https://raw.githubusercontent.com/eoyoustme/ohh/refs/heads/main/command%20block1"))()
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Entity has started moving")
+end)
+
+entity:SetCallback("OnEnterRoom", function(room, firstTime)
+    if firstTime == true then
+        print("Entity has entered room: ".. room.Name.. " for the first time")
+    else
+        print("Entity has entered room: ".. room.Name.. " again")
+    end
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight)
+	if lineOfSight == true then
+		print("Player is looking at entity")
+	else
+		print("Player See Something")
+	end
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+    if startOfRebound == true then
+        print("Entity has started rebounding")
+	else
+        print("Entity Has Gone")
+	end
+end)
+
+entity:SetCallback("OnDespawning", function()
+    print("Entity is despawning")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Entity has despawned")
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+	if newHealth == 0 then
+		print("Entity has killed the player")
+	else
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Anctarus7105/Jumpscares/refs/heads/main/DreadScary"))()
+end)
+
+--[[
+
+DEVELOPER NOTE:
+By overwriting 'CrucifixionOverwrite' the default crucifixion callback will be replaced with your custom callback.
+
+entity:SetCallback("CrucifixionOverwrite", function()
+    print("Silence Get Cooked")
+end)
+
+]]--
+
+---====== Run entity ======---
+
+entity:Run()
