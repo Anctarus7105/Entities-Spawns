@@ -1,6 +1,6 @@
 local Dreadcolor = Instance.new("ColorCorrectionEffect",game.Lighting) game.Debris:AddItem(Dreadcolor,0) 
     Dreadcolor.Name = "Dreda" 
-    Reboundcolor.TintColor = Color3.fromRGB(69, 69, 69) Dreadcolor.Saturation = -0.7 Dreadcolor.Contrast = 0.2 
+    Dreadcolor.TintColor = Color3.fromRGB(69, 69, 69) Dreadcolor.Saturation = -0.7 Dreadcolor.Contrast = 0.2 
     game.TweenService:Create(Dreadcolor,TweenInfo.new(15),{TintColor = Color3.fromRGB(255, 255, 255),Saturation = 0, Contrast = 0}):Play()
 
 local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
