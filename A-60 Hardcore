@@ -108,6 +108,8 @@ achievementGiver({
     Image = "rbxassetid://18118641937"
 })
 
+else
+
 game.Lighting.MainColorCorrection.TintColor = Color3.fromRGB(56, 0, 0)
 game.Lighting.MainColorCorrection.Contrast = 1
 local tween = game:GetService("TweenService")
