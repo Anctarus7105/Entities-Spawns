@@ -48,7 +48,7 @@ local entity = spawner.Create({
 	},
 	Damage = {
 		Enabled = true,
-		Range = 40,
+		Range = 5,
 		Amount = 125
 	},
 	Crucifixion = {
@@ -60,7 +60,7 @@ local entity = spawner.Create({
 	Death = {
 		Type = "Guiding", -- "Curious"
 		Hints = {"You died to Cease", "Stay and he not kill you!", "if you move he kill you"},
-		Cause = ""
+		Cause = "Cease"
 	}
 })
 
