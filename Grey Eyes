@@ -2,7 +2,7 @@ local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/vct07
 
 local CustomEyeSpawnerConfig = { 
     CustomName = "Eyes",
-    Model = "https://github.com/Anctarus7105/Random-Files/blob/main/GreyEyes.rbxm",
+    Model = "https://github.com/Anctarus7105/Random-Files/raw/main/GreyEyes.rbxm",
     DelayTime = 0.7,
     HeightOffset = 0,
     CanKill = true,
