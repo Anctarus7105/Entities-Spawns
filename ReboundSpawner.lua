@@ -28,9 +28,9 @@ function CustomGitSound(soundlink, vol, filename)
 
     sound.Parent = workspace
 
-    sound.Name = "deezerspawn"
+    sound.Name = "reboundspawn"
 
-    sound.Volume = 10
+    sound.Volume = 1
 
     sound.PlaybackSpeed = 1
 
