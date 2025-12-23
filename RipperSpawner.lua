@@ -104,16 +104,7 @@ end)
 
 entity:SetCallback("OnDespawned", function()
     print("Entity has despawned")
----====== Load achievement giver ======---
-local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
-
----====== Display achievement ======---
-achievementGiver({
-    Title = "Torn Apart",
-    Desc = "Dont leave to early..",
-    Reason = "Encounter Ripper.",
-    Image = "rbxassetid://17702317077"
-})
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Anctarus7105/Custom-Badges/refs/heads/main/Hardcore%20Mode/Ripper.lua"))()
 end)
 
 entity:SetCallback("OnDamagePlayer", function(newHealth)
