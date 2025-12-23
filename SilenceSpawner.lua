@@ -95,7 +95,7 @@ entity:SetCallback("OnDespawning", function()
 end)
 
 entity:SetCallback("OnDespawned", function()
-    print("Entity has despawned")
+loadstring(gae:HttpGet("https://raw.githubusercontent.com/Anctarus7105/Custom-Badges/refs/heads/main/Hardcore%20Mode/Silence.lua"))()
 end)
 
 entity:SetCallback("OnDamagePlayer", function(newHealth)
