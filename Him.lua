@@ -12,14 +12,14 @@ local entity = spawner.Create({
 	},
 	Lights = {
 		Flicker = {
-			Enabled = false,
+			Enabled = true,
 			Duration = 1
 		},
 		Shatter = true,
 		Repair = false
 	},
 	Earthquake = {
-		Enabled = false
+		Enabled = true
 	},
 	CameraShake = {
 		Enabled = true,
@@ -28,7 +28,7 @@ local entity = spawner.Create({
 	},
 	Movement = {
 		Speed = 350,
-		Delay = 3,
+		Delay = 2,
 		Reversed = false
 	},
 	Rebounding = {
@@ -60,36 +60,46 @@ local entity = spawner.Create({
 
 entity:SetCallback("OnSpawned", function()
     print("Entity has spawned")
-Scream = Instance.new("Sound")
-Scream.Parent = workspace
-Scream.Name = "Him"
-Scream.Looped = false
-Scream.Volume = 1
-Scream.SoundId = "rbxassetid://9125713501"
-Scream:Play()
+-- Spawn Sound
+local cue2 = Instance.new("Sound")
+	cue2.Parent = game.Workspace
+	cue2.Name = "Him"
+	cue2.SoundId = "rbxassetid://9125713501"
+	cue2.Volume = 1
+	cue2.PlaybackSpeed = 1
+	cue2:Play()
+wait(0)
 
--- AmbienceBecauseYes
-Scare = Instance.new("Sound")
-Scare.Parent = workspace
-Scare.Name = "It"
-Scare.Looped = true
-Scare.Volume = 1
-Scare.SoundId = "rbxassetid://1837403780"
-Scare.PlayOnRemove = true
-Scare.RollOffMode = "Linear"
-Scare.RollOffMaxDistance = 36
-Scare.RollOffMinDistance = 2
-Scare.PlaybackSpeed = 0.198
-Scare.TimePosition = 48.607
-					
--- Equalizer
+	else	
+
+-- Void Noises
+local cue2 = Instance.new("Sound")
+	cue2.Parent = game.Workspace
+	cue2.Name = "It"
+	cue2.SoundId = "rbxassetid://1837403780"
+	cue2.Volume = 1
+	cue2.Looped = true
+	cue2.PlaybackSpeed = 0.198
+	cue2:Play()
+    cue2.PlayOnRemove = true
+    cue2.RollOffMode = "Linear"
+    cue2.RollOffMaxDistance = 36
+    cue2.RollOffMinDistance = 2
+    cue2.TimePosition = 48.607
+wait(0)
+
+	else	
+	
+-- Equalizer Effect
 Eq = Instance.new("EqualizerSoundEffect")
 Eq.Parent = workspace.It
 Eq.LowGain = -80
 Eq.Enabled = true
 Eq.Name = "Equalizer"
-					
--- Reverb
+	
+	else	
+	
+-- Reverb Effect
 Rb = Instance.new("ReverbSoundEffect")
 Rb.Parent = workspace.It
 Rb.DecayTime = 2.687
@@ -100,7 +110,6 @@ Rb.Enabled = true
 Rb.Name = "Reverb"
 wait(0.3)
 Scare:Play()
-end
 end)
 
 entity:SetCallback("OnStartMoving", function()
@@ -133,23 +142,28 @@ end)
 
 entity:SetCallback("OnDespawning", function()
     print("Entity is despawning")
-Scream.Name = "Despawn"
-Scream.SoundId = "rbxassetid://7076365332"
-Scream.Volume = 1
-Scream:Play()
-
--- End Scare
-Scare:Destroy()
-end
 end)
 
 entity:SetCallback("OnDespawned", function()
     print("Entity has despawned")
+local cue2 = Instance.new("Sound")
+	cue2.Parent = game.Workspace
+	cue2.Name = "Despawn"
+	cue2.SoundId = "rbxassetid://7076365332"
+	cue2.Volume = 1
+	cue2.PlaybackSpeed = 1
+	cue2:Play()
+wait(0)
+
+else
+		
+-- End It
+game.Workspace.It:Destroy()
 end)
 
 entity:SetCallback("OnDamagePlayer", function(newHealth)
 	if newHealth == 0 then
-		print("Entity has killed the player")
+		print("Come back, id like to see you again...")
 	else
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Anctarus7105/Jumpscares/refs/heads/main/HimScare"))()
 	end
@@ -161,7 +175,7 @@ DEVELOPER NOTE:
 By overwriting 'CrucifixionOverwrite' the default crucifixion callback will be replaced with your custom callback.
 
 entity:SetCallback("CrucifixionOverwrite", function()
-    print("Its A Beta Version And May Not Working Now!")
+    print("Crucifixed Him!")
 end)
 
 ]]--
