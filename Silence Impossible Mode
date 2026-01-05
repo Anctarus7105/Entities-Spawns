@@ -1,4 +1,4 @@
-local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Voor-Pr00/Fogroom/refs/heads/main/Wwwhyyyyil"))()
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/VoorPhale012/Fogroom/refs/heads/main/Wwwhyyyyil"))()
 local dmg = true
 local entity = spawner.Create({
 	Entity = {
@@ -47,8 +47,8 @@ local entity = spawner.Create({
 	},
 	Death = {
 		Type = "Guiding", -- "Curious"
-		Hints = {"Death", "Hints", "Go", "Here"},
-		Cause = ""
+		Hints = {"", "", "", ""},
+		Cause = "Silence"
 	}
 })
 
