@@ -7,7 +7,7 @@ local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Regul
 local entity = spawner.Create({
 	Entity = {
 		Name = "Hungered",
-		Asset = "ttps://github.com/ThatOneGuyRuben/Stuff/raw/main/FG/HungerMDL.rbxm",
+		Asset = "https://github.com/PABMAXICHAC/doors-monsters-models/raw/main/hunger.rbxm",
 		HeightOffset = 0
 	},
 	Lights = {
@@ -34,8 +34,8 @@ local entity = spawner.Create({
 	Rebounding = {
 		Enabled = true,
 		Type = "Ambush", -- "Blitz"
-		Min = 1,
-		Max = 1,
+		Min = 9,
+		Max = 4,
 		Delay = 0.2
 	},
 	Damage = {
@@ -63,7 +63,7 @@ entity:SetCallback("OnSpawned", function()
 local cue2 = Instance.new("Sound")
 	cue2.Parent = game.Workspace
 	cue2.Name = "Sound"
-	cue2.SoundId = "rbxassetid://9125713501"
+	cue2.SoundId = "rbxassetid://9125712561"
 	cue2.Volume = 1.4
 	cue2.PlaybackSpeed = 1
 	cue2:Play()
