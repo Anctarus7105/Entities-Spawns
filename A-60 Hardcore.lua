@@ -7,7 +7,7 @@ local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Regul
 local entity = spawner.Create({
 	Entity = {
 		Name = "A-60 Hardcore",
-		Asset = "rbxassetid://12797548771",
+		Asset = "rbxassetid://12208757936",
 		HeightOffset = 0
 	},
 	Lights = {
@@ -23,11 +23,11 @@ local entity = spawner.Create({
 	},
 	CameraShake = {
 		Enabled = true,
-		Range = 100,
+		Range = 450,
 		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
 	},
 	Movement = {
-		Speed = 220,
+		Speed = 310,
 		Delay = 0.4,
 		Reversed = false
 	},
@@ -35,12 +35,12 @@ local entity = spawner.Create({
 		Enabled = true,
 		Type = "Ambush", -- "Blitz"
 		Min = 1,
-		Max = 9,
+		Max = 11,
 		Delay = 0.1
 	},
 	Damage = {
 		Enabled = true,
-		Range = 40,
+		Range = 35,
 		Amount = 125
 	},
 	Crucifixion = {
@@ -108,7 +108,7 @@ achievementGiver({
     Image = "rbxassetid://18118641937"
 })
 
-else
+	else
 
 game.Lighting.MainColorCorrection.TintColor = Color3.fromRGB(56, 0, 0)
 game.Lighting.MainColorCorrection.Contrast = 1
