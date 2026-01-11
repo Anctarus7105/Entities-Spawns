@@ -15,7 +15,7 @@ TW:Play()
 local entity = spawner.Create({
 	Entity = {
 		Name = "Surge",
-		Asset = "",
+		Asset = "https://github.com/Anctarus7105/Random-Files/raw/main/surge.rbxm",
 		HeightOffset = 0
 	},
 	Lights = {
