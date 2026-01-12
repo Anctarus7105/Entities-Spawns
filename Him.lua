@@ -1,3 +1,11 @@
+    local cue2 = Instance.new("Sound")
+	cue2.Parent = game.Workspace
+	cue2.Name = "Spawn"
+	cue2.SoundId = "rbxassetid://9125713501"
+	cue2.Volume = 9999
+	cue2.PlaybackSpeed = 1
+	cue2:Play()
+if game.Workspace:FindFirstChild("SeekMovingNewClone") then return end
 ---====== Load spawner ======---
 
 local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
@@ -6,29 +14,29 @@ local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Regul
 
 local entity = spawner.Create({
 	Entity = {
-		Name = "Him",
-		Asset = "https://github.com/VeaselGod/CometV4/raw/main/Models/Him.rbxm",
+		Name = "him",
+		Asset = "rbxassetid://114440873768242",
 		HeightOffset = 0
 	},
 	Lights = {
 		Flicker = {
 			Enabled = true,
-			Duration = 1
+			Duration = 4
 		},
-		Shatter = true,
+		Shatter = false,
 		Repair = false
 	},
 	Earthquake = {
-		Enabled = true
+		Enabled = false
 	},
 	CameraShake = {
 		Enabled = true,
-		Range = 100,
-		Values = {3.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+		Range = 50,
+		Values = {100, 30, 0.1, 0.1} -- Magnitude, Roughness, FadeIn, FadeOut
 	},
 	Movement = {
-		Speed = 350,
-		Delay = 2,
+		Speed = 450,
+		Delay = 3,
 		Reversed = false
 	},
 	Rebounding = {
@@ -36,11 +44,11 @@ local entity = spawner.Create({
 		Type = "Ambush", -- "Blitz"
 		Min = 5,
 		Max = 10,
-		Delay = 1
+		Delay = 0
 	},
 	Damage = {
 		Enabled = true,
-		Range = 150,
+		Range = 50,
 		Amount = 125
 	},
 	Crucifixion = {
@@ -51,7 +59,7 @@ local entity = spawner.Create({
 	},
 	Death = {
 		Type = "Guiding", -- "Curious"
-		Hints = {"!!!!!!!!!!!!!!!!!!!!!"},
+		Hints = {"!!!!!!!!!!!!!!!!!"},
 		Cause = "Him"
 	}
 })
@@ -60,56 +68,6 @@ local entity = spawner.Create({
 
 entity:SetCallback("OnSpawned", function()
     print("Entity has spawned")
--- Spawn Sound
-local cue2 = Instance.new("Sound")
-	cue2.Parent = game.Workspace
-	cue2.Name = "Him"
-	cue2.SoundId = "rbxassetid://9125713501"
-	cue2.Volume = 1
-	cue2.PlaybackSpeed = 1
-	cue2:Play()
-wait(0)
-
-	else	
-
--- Void Noises
-local cue2 = Instance.new("Sound")
-	cue2.Parent = game.Workspace
-	cue2.Name = "It"
-	cue2.SoundId = "rbxassetid://1837403780"
-	cue2.Volume = 1
-	cue2.Looped = true
-	cue2.PlaybackSpeed = 0.198
-	cue2:Play()
-    cue2.PlayOnRemove = true
-    cue2.RollOffMode = "Linear"
-    cue2.RollOffMaxDistance = 36
-    cue2.RollOffMinDistance = 2
-    cue2.TimePosition = 48.607
-wait(0)
-
-	else	
-	
--- Equalizer Effect
-Eq = Instance.new("EqualizerSoundEffect")
-Eq.Parent = workspace.It
-Eq.LowGain = -80
-Eq.Enabled = true
-Eq.Name = "Equalizer"
-	
-	else	
-	
--- Reverb Effect
-Rb = Instance.new("ReverbSoundEffect")
-Rb.Parent = workspace.It
-Rb.DecayTime = 2.687
-Rb.Density = 1
-Rb.Diffusion = 1
-Rb.DryLevel = -80
-Rb.Enabled = true
-Rb.Name = "Reverb"
-wait(0.3)
-Scare:Play()
 end)
 
 entity:SetCallback("OnStartMoving", function()
@@ -146,26 +104,13 @@ end)
 
 entity:SetCallback("OnDespawned", function()
     print("Entity has despawned")
-local cue2 = Instance.new("Sound")
-	cue2.Parent = game.Workspace
-	cue2.Name = "Despawn"
-	cue2.SoundId = "rbxassetid://7076365332"
-	cue2.Volume = 1
-	cue2.PlaybackSpeed = 1
-	cue2:Play()
-wait(0)
-
-else
-		
--- End It
-game.Workspace.It:Destroy()
 end)
 
 entity:SetCallback("OnDamagePlayer", function(newHealth)
 	if newHealth == 0 then
-		print("Come back, id like to see you again...")
+		print("Entity has killed the player")
 	else
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Anctarus7105/Jumpscares/refs/heads/main/HimScare"))()
+		print("Entity has damaged the player")
 	end
 end)
 
@@ -175,7 +120,7 @@ DEVELOPER NOTE:
 By overwriting 'CrucifixionOverwrite' the default crucifixion callback will be replaced with your custom callback.
 
 entity:SetCallback("CrucifixionOverwrite", function()
-    print("Crucifixed Him!")
+    print("Custom crucifixion callback")
 end)
 
 ]]--
