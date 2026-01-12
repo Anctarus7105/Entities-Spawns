@@ -24,7 +24,7 @@ local entity = spawner.Create({
 	CameraShake = {
 		Enabled = true,
 		Range = 100,
-		Values = {2.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+		Values = {2.5, 45, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
 	},
 	Movement = {
 		Speed = 35,
@@ -34,8 +34,8 @@ local entity = spawner.Create({
 	Rebounding = {
 		Enabled = false,
 		Type = "Ambush", -- "Blitz"
-		Min = 1,
-		Max = 1,
+		Min = 0,
+		Max = 0,
 		Delay = 2
 	},
 	Damage = {
