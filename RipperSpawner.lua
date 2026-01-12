@@ -15,7 +15,7 @@ TW:Play()
 local entity = spawner.Create({
 	Entity = {
 		Name = "Ripper",
-		Asset = "rbxassetid:////12262768551",
+		Asset = "rbxassetid://12262768551",
 		HeightOffset = 0
 	},
 	Lights = {
