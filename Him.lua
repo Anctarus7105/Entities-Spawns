@@ -71,7 +71,13 @@ entity:SetCallback("OnSpawned", function()
 end)
 
 entity:SetCallback("OnStartMoving", function()
-    print("Entity has started moving")
+    local cue2 = Instance.new("Sound")
+	cue2.Parent = game.Workspace
+	cue2.Name = "It"
+	cue2.SoundId = "rbxassetid://1837403780"
+	cue2.Volume = 1
+	cue2.PlaybackSpeed = 0.198
+	cue2:Play()
 end)
 
 entity:SetCallback("OnEnterRoom", function(room, firstTime)
