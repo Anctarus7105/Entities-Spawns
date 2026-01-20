@@ -32,8 +32,6 @@ end
 
 CustomGitSound("https://github.com/Anctarus7105/Custom-Sounds/raw/main/DemonScreechSpawn.mp3", 1, "demonscreechspawn")
 
--- Spawn
-
 local player = game.Players.LocalPlayer
 local mainGame = require(player.PlayerGui.MainUI.Initiator.Main_Game)
 local screechModule =
@@ -45,7 +43,7 @@ screechModule(mainGame)
 
 game.Workspace:FindFirstChild("Eyes") or game.Workspace:FindFirstChild("eyes")
 
-if Eyes or eyes = then
+if Eyes or eyes then
 
 game.ReplicatedStorage.Entities.Screech.Top.Eyes.Color = Color3.fromRGB(255, 0, 0)
 
