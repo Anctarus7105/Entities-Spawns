@@ -2,9 +2,36 @@
 	cue2.Parent = game.Workspace
 	cue2.Name = "Spawn"
 	cue2.SoundId = "rbxassetid://9125713501"
-	cue2.Volume = 9999
+	cue2.Volume = 5
 	cue2.PlaybackSpeed = 1
 	cue2:Play()
+    local cue2 = Instance.new("Sound")
+	cue2.Parent = game.Workspace
+	cue2.Name = "It"
+	cue2.SoundId = "rbxassetid://1837403780"
+	cue2.Volume = 5
+	cue2.Looped = true
+	cue2.PlaybackSpeed = 0.198
+	cue2.TimePosition = 48.607
+	cue2:Play()
+--Equalizer
+    Eq = Instance.new("EqualizerSoundEffect")
+	Eq.Parent = game.Workspace.It
+	Eq.LowGain = -80
+	Eq.Enabled = true
+	Eq.Name = "Equalizer"
+--Reverb
+	Rb = Instance.new("ReverbSoundEffect")
+	Rb.Parent = game.Workspace.It
+	Rb.DecayTime = 2.687
+	Rb.Density = 1
+	Rb.Diffusion = 1
+	Rb.DryLevel = -80
+	Rb.Enabled = true
+	Rb.Name = "Reverb"
+	wait(0.3)
+	cue2:Play()
+end
 if game.Workspace:FindFirstChild("SeekMovingNewClone") then return end
 ---====== Load spawner ======---
 
@@ -31,12 +58,12 @@ local entity = spawner.Create({
 	},
 	CameraShake = {
 		Enabled = true,
-		Range = 50,
+		Range = 100,
 		Values = {100, 30, 0.1, 0.1} -- Magnitude, Roughness, FadeIn, FadeOut
 	},
 	Movement = {
-		Speed = 450,
-		Delay = 3,
+		Speed = 350,
+		Delay = 1,
 		Reversed = false
 	},
 	Rebounding = {
@@ -71,13 +98,7 @@ entity:SetCallback("OnSpawned", function()
 end)
 
 entity:SetCallback("OnStartMoving", function()
-    local cue2 = Instance.new("Sound")
-	cue2.Parent = game.Workspace
-	cue2.Name = "It"
-	cue2.SoundId = "rbxassetid://1837403780"
-	cue2.Volume = 1
-	cue2.PlaybackSpeed = 0.198
-	cue2:Play()
+    print("Entity has started moving")
 end)
 
 entity:SetCallback("OnEnterRoom", function(room, firstTime)
