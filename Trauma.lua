@@ -13,7 +13,7 @@ local entity = spawner.Create({
 	Lights = {
 		Flicker = {
 			Enabled = true,
-			Duration = 1.7
+			Duration = 5.2
 		},
 		Shatter = true,
 		Repair = false
@@ -24,11 +24,11 @@ local entity = spawner.Create({
 	CameraShake = {
 		Enabled = true,
 		Range = 75,
-		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+		Values = {4.5, 20, 0.3, 1} -- Magnitude, Roughness, FadeIn, FadeOut
 	},
 	Movement = {
-		Speed = 335,
-		Delay = 1.6,
+		Speed = 395,
+		Delay = 4,
 		Reversed = false
 	},
 	Rebounding = {
@@ -51,8 +51,8 @@ local entity = spawner.Create({
 	},
 	Death = {
 		Type = "Guiding", -- "Curious"
-		Hints = {"You died to Trauma", "It appears when the lights are flickering.", "Hide if it spawn", "Remember it!"},
-		Cause = ""
+		Hints = {"You died to Trauma", "It appears when the lights are flickering.", "Hide if it spawn", "Alright Now!"},
+		Cause = "Trauma"
 	}
 })
 
