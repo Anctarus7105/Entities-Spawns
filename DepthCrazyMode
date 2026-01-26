@@ -24,18 +24,18 @@ local entity = spawner.Create({
 	CameraShake = {
 		Enabled = true,
 		Range = 75,
-		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+		Values = {4.5, 25, 0.1, 2} -- Magnitude, Roughness, FadeIn, FadeOut
 	},
 	Movement = {
-		Speed = 165,
+		Speed = 110,
 		Delay = 1,
 		Reversed = false
 	},
 	Rebounding = {
 		Enabled = true,
 		Type = "Ambush", -- "Blitz"
-		Min = 1,
-		Max = 3,
+		Min = 2,
+		Max = 2,
 		Delay = 0.4
 	},
 	Damage = {
@@ -52,7 +52,7 @@ local entity = spawner.Create({
 	Death = {
 		Type = "Guiding", -- "Curious"
 		Hints = {"You died to Depth...", "Hide if you hear intense sound!", "he wont new guests in this hotel..", "Remember it."},
-		Cause = ""
+		Cause = "Depth"
 	}
 })
 
