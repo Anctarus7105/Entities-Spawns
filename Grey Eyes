@@ -3,7 +3,7 @@ repenttimes = 0
 local deadeyescrucifix = false
 local repentcomplete = false
 local currentLoadedRoom = workspace.CurrentRooms[game:GetService("ReplicatedStorage").GameData.LatestRoom.Value]
-local eyes = LoadCustomAsset("https://github.com/Anctarus7105/Random-Files/raw/main/GreyEyes.rbxm?raw=true")
+local eyes = LoadCustomInstance("https://github.com/Anctarus7105/Random-Files/raw/main/GreyEyes.rbxm?raw=true")
 local num = math.floor(#currentLoadedRoom.Nodes:GetChildren() / 2)
 eyes.CFrame = (num == 0 and currentLoadedRoom.Base or currentLoadedRoom.Nodes[num]).CFrame + Vector3.new(0, 7, 0)
 
