@@ -7,7 +7,7 @@ local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Regul
 local entity = spawner.Create({
 	Entity = {
 		Name = "A-60 Hardcore",
-		Asset = "rbxassetid://12208757936",
+		Asset = "https://github.com/PABMAXICHAC/doors-monsters-models/raw/main/A-60.rbxm",
 		HeightOffset = 0
 	},
 	Lights = {
@@ -24,23 +24,23 @@ local entity = spawner.Create({
 	CameraShake = {
 		Enabled = true,
 		Range = 450,
-		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+		Values = {4.5, 70, 0.5, 2} -- Magnitude, Roughness, FadeIn, FadeOut
 	},
 	Movement = {
 		Speed = 310,
-		Delay = 0.4,
+		Delay = 0,
 		Reversed = false
 	},
 	Rebounding = {
 		Enabled = true,
 		Type = "Ambush", -- "Blitz"
-		Min = 1,
-		Max = 11,
-		Delay = 0.1
+		Min = 5,
+		Max = 15,
+		Delay = 0
 	},
 	Damage = {
 		Enabled = true,
-		Range = 35,
+		Range = 40,
 		Amount = 125
 	},
 	Crucifixion = {
@@ -96,28 +96,8 @@ end)
 
 entity:SetCallback("OnDespawned", function()
     print("Entity has despawned")
-
----====== Load achievement giver ======---
-local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
-
----====== Display achievement ======---
-achievementGiver({
-    Title = "A Nostalgic Friday.",
-    Desc = "The Speed Of Light Is Something You Won't Even See!",
-    Reason = "Encounter A-60.",
-    Image = "rbxassetid://18118641937"
-})
-
-	else
-
-game.Lighting.MainColorCorrection.TintColor = Color3.fromRGB(56, 0, 0)
-game.Lighting.MainColorCorrection.Contrast = 1
-local tween = game:GetService("TweenService")
-tween:Create(game.Lighting.MainColorCorrection, TweenInfo.new(2.5), {Contrast = 0}):Play()
-local TweenService = game:GetService("TweenService")
-local TW = TweenService:Create(game.Lighting.MainColorCorrection, TweenInfo.new(80),{TintColor = Color3.fromRGB(255, 255, 255)})
-TW:Play()
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Anctarus7105/Custom-Badges/refs/heads/main/Hardcore%20Mode/A-60Hardcore.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Anctarus7105/Entities-DeSpawns/refs/heads/main/A-60HardcoreDeSpawner.lua"))()
 end)
 
 entity:SetCallback("OnDamagePlayer", function(newHealth)
