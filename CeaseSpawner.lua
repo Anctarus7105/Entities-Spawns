@@ -1,130 +1,149 @@
----====== Load spawner ======---
-
-local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
-
----====== Create entity ======---
-
-game.Lighting.MainColorCorrection.TintColor = Color3.fromRGB(92, 103, 255)
-game.Lighting.MainColorCorrection.Contrast = 1
-local tween = game:GetService("TweenService")
-tween:Create(game.Lighting.MainColorCorrection, TweenInfo.new(2.5), {Contrast = 0}):Play()
 local TweenService = game:GetService("TweenService")
-local TW = TweenService:Create(game.Lighting.MainColorCorrection, TweenInfo.new(80),{TintColor = Color3.fromRGB(255, 255, 255)})
-TW:Play()
 
-local entity = spawner.Create({
-	Entity = {
-		Name = "Cease",
-		Asset = "rbxassetid://12262854624",
-		HeightOffset = 0
-	},
-	Lights = {
-		Flicker = {
-			Enabled = true,
-			Duration = 0
-		},
-		Shatter = true,
-		Repair = false
-	},
-	Earthquake = {
-		Enabled = false
-	},
-	CameraShake = {
-		Enabled = true,
-		Range = 35,
-		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
-	},
-	Movement = {
-		Speed = 60,
-		Delay = 2,
-		Reversed = false
-	},
-	Rebounding = {
-		Enabled = true,
-		Type = "Ambush", -- "Blitz"
-		Min = 1,
-		Max = 1,
-		Delay = 0.3
-	},
-	Damage = {
-		Enabled = true,
-		Range = 5,
-		Amount = 125
-	},
-	Crucifixion = {
-		Enabled = true,
-		Range = 40,
-		Resist = false,
-		Break = true
-	},
-	Death = {
-		Type = "Guiding", -- "Curious"
-		Hints = {"You died to Cease", "Stay and he not kill you!", "if you move he kill you"},
-		Cause = "Cease"
-	}
-})
+--- Configs
 
----====== Debug entity ======---
+local ambruhspeed = 40
 
-entity:SetCallback("OnSpawned", function()
-    print("Entity has spawned")
-end)
+local redtweeninfo = TweenInfo.new(3)
 
-entity:SetCallback("OnStartMoving", function()
-    print("Entity has started moving")
-end)
+local redinfo = {Color = Color3.fromRGB(125, 125, 255)}
 
-entity:SetCallback("OnEnterRoom", function(room, firstTime)
-    if firstTime == true then
-        print("Entity has entered room: ".. room.Name.. " for the first time")
-    else
-        print("Entity has entered room: ".. room.Name.. " again")
+-- Изменение цвета света
+
+for i, v in pairs(workspace.CurrentRooms:GetDescendants()) do
+
+    if v:IsA("Light") then
+
+        TweenService:Create(v, redtweeninfo, redinfo):Play()
+
+        if v.Parent.Name == "LightFixture" then
+
+            TweenService:Create(v.Parent, redtweeninfo, redinfo):Play()
+
+        end
+
     end
-end)
 
-entity:SetCallback("OnLookAt", function(lineOfSight)
-	if lineOfSight == true then
-		print("Player is looking at entity")
-	else
-		print("Player view is obstructed by something")
-	end
-end)
+end
 
-entity:SetCallback("OnRebounding", function(startOfRebound)
-    if startOfRebound == true then
-        print("Entity has started rebounding")
-	else
-        print("Entity has finished rebounding")
-	end
-end)
+local room = workspace.CurrentRooms[game.Players.LocalPlayer:GetAttribute("CurrentRoom")]
 
-entity:SetCallback("OnDespawning", function()
-    print("Entity is despawning")
-end)
+local color = Color3.fromRGB(100, 120, 228)
 
-entity:SetCallback("OnDespawned", function()
-    print("Entity has despawned")
-end)
+for _, thing in pairs(room.Assets:GetDescendants()) do
 
-entity:SetCallback("OnDamagePlayer", function(newHealth)
-	if newHealth == 0 then
-		print("Entity has killed the player")
-	else
-		print("Entity has damaged the player")
-	end
-end)
+    if thing:FindFirstChild("LightFixture") then
 
---[[
+        local lightFixture = thing.LightFixture
 
-DEVELOPER NOTE:
-By overwriting 'CrucifixionOverwrite' the default crucifixion callback will be replaced with your custom callback.
+        if lightFixture:FindFirstChild("Neon") then
 
-entity:SetCallback("CrucifixionOverwrite", function()
-    print("Crucifixed Cease")
-end)
+            lightFixture.Neon.Color = color
 
-]]--
+        end
 
----====== Run entity ======---
+        for _, light in pairs(lightFixture:GetChildren()) do
 
-entity:Run()
+            if light:IsA("SpotLight") or light:IsA("PointLight") then
+
+                light.Color = color
+
+            end
+
+        end
+
+    end
+
+end
+
+local s = game:GetObjects("rbxassetid://11547018893")[1]
+
+local latestRoomIndex = game.ReplicatedStorage.GameData.LatestRoom.Value
+
+local door = game.Workspace.CurrentRooms[latestRoomIndex].Door.Door
+
+local function moveToDoor1()
+
+    local targetPosition = door.Position
+
+    local currentPosition = s.PrimaryPart.Position
+
+    local distance = (targetPosition - currentPosition).magnitude
+
+    local timeToReach = distance / ambruhspeed
+
+    local tweenInfo = TweenInfo.new(timeToReach, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+
+    local goal = {Position = targetPosition}
+
+    local tween = TweenService:Create(s.PrimaryPart, tweenInfo, goal)
+
+    
+
+    tween:Play()
+
+    tween.Completed:Wait() -- Дождаться завершения анимации
+
+    s.PrimaryPart.Anchored = false
+
+    s.PrimaryPart.CanCollide = false
+
+end
+
+local function canSeeTarget()
+
+    local players = game.Players:GetPlayers()
+
+    for _, player in ipairs(players) do
+
+        local character = player.Character
+
+        local humanoid = character and character:FindFirstChildWhichIsA("Humanoid")
+
+     
+
+        if humanoid and humanoid.Health > 0 and character:FindFirstChild("HumanoidRootPart") then
+
+            local distance = (s.PrimaryPart.Position - character.HumanoidRootPart.Position).magnitude
+
+            
+
+            if distance <= 50 then   
+
+                    end
+
+                end)
+
+            end
+
+        end
+
+    end
+
+end
+
+local rootPart = s:FindFirstChild("HumanoidRootPart") or s:FindFirstChildWhichIsA("Part")
+
+if rootPart then
+
+    s.PrimaryPart = rootPart
+
+end
+
+s.Silence:Play()
+
+s.Parent = workspace
+
+s.PrimaryPart.CFrame = CFrame.new(250, 0, -1)
+
+wait(3)
+
+moveToDoor1()
+
+while true do
+
+    canSeeTarget()
+
+    wait(1) 
+
+end
