@@ -13,7 +13,7 @@ local entity = spawner.Create({
 	Lights = {
 		Flicker = {
 			Enabled = true,
-			Duration = 75
+			Duration = 69
 		},
 		Shatter = true,
 		Repair = false
@@ -24,19 +24,19 @@ local entity = spawner.Create({
 	CameraShake = {
 		Enabled = true,
 		Range = 100,
-		Values = {2.5, 45, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+		Values = {3.5, 45, 0.1, 2} -- Magnitude, Roughness, FadeIn, FadeOut
 	},
 	Movement = {
-		Speed = 35,
+		Speed = 30,
 		Delay = 2,
 		Reversed = false
 	},
 	Rebounding = {
 		Enabled = false,
-		Type = "Ambush", -- "Blitz"
+		Type = "Rush", -- "Blitz"
 		Min = 0,
 		Max = 0,
-		Delay = 2
+		Delay = 0
 	},
 	Damage = {
 		Enabled = true,
