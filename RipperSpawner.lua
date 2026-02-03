@@ -15,7 +15,7 @@ TW:Play()
 local entity = spawner.Create({
 	Entity = {
 		Name = "Ripper",
-		Asset = "rbxassetid://12262768551",
+		Asset = "rbxassetid://12234498940",
 		HeightOffset = 0
 	},
 	Lights = {
@@ -138,23 +138,11 @@ end)
 entity:SetCallback("OnDespawned", function()
     print("Entity has despawned")
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Anctarus7105/Custom-Badges/refs/heads/main/Hardcore%20Mode/Ripper.lua"))()
-
-	else
-		
-local Scream = Instance.new("Sound")	
-Scream.Parent = Workspace
-Scream.SoundId = "rbxassetid://1837829565"
-Scream.Volume = 9.9
-Scream.Looped = false
-Scream.Pitch = 1
-Scream:Play()
 end)
 
 entity:SetCallback("OnDamagePlayer", function(newHealth)
 	if newHealth == 0 then
-		print("Entity has killed the player")
-	else
-		workspace.RipeMoving:Stop()
+workspace.RipeMoving:Stop()
 workspace.Ripper:Destroy()
 
 local player = game.Players.LocalPlayer
