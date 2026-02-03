@@ -6,7 +6,7 @@ local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 
 local function spawnShocker()
-    local shockerModel = game:GetObjects("rbxassetid://11547601187")[1]
+    local shockerModel = game:GetObjects("rbxassetid://11547803978")[1]
     shockerModel.PrimaryPart = shockerModel:FindFirstChild("HumanoidRootPart") or shockerModel:FindFirstChildWhichIsA("Part")
     
     local camera = Workspace.CurrentCamera
@@ -28,7 +28,7 @@ local function spawnShocker()
 
         if (angle:Dot(direction) > 0.9) then
             if tick() - startTime >= lookDuration then
-                horrorScream:Destroy()
+                horrorScream:Play()
                 humanoid:TakeDamage(30)
                 playerLookingAtShocker = false
 
