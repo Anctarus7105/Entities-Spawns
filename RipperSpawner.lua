@@ -2,76 +2,88 @@
 
 local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
 
+---====== Services ======---
+
+local Players = game:GetService("Players")
+local Lighting = game:GetService("Lighting")
+local TweenService = game:GetService("TweenService")
+local ReSt = game:GetService("ReplicatedStorage")
+local Plr = Players.LocalPlayer
+
+---====== Lighting RED ======---
+
+local cc = Lighting:FindFirstChild("MainColorCorrection")
+if not cc then
+    cc = Instance.new("ColorCorrectionEffect")
+    cc.Name = "MainColorCorrection"
+    cc.Parent = Lighting
+end
+
+cc.TintColor = Color3.fromRGB(255,0,0)
+cc.Contrast = 1
+
+TweenService:Create(cc, TweenInfo.new(1.5), {Contrast = 0}):Play()
+TweenService:Create(cc, TweenInfo.new(6), {TintColor = Color3.fromRGB(255,255,255)}):Play()
+
 ---====== Create entity ======---
 
-game.Lighting.MainColorCorrection.TintColor = Color3.fromRGB(255, 0, 0)
-game.Lighting.MainColorCorrection.Contrast = 1
-local tween = game:GetService("TweenService")
-tween:Create(game.Lighting.MainColorCorrection, TweenInfo.new(2.5), {Contrast = 0}):Play()
-local TweenService = game:GetService("TweenService")
-local TW = TweenService:Create(game.Lighting.MainColorCorrection, TweenInfo.new(80),{TintColor = Color3.fromRGB(255, 255, 255)})
-TW:Play()
-
 local entity = spawner.Create({
-	Entity = {
-		Name = "Ripper",
-		Asset = "rbxassetid://12234498940",
-		HeightOffset = 0
-	},
-	Lights = {
-		Flicker = {
-			Enabled = true,
-			Duration = 0
-		},
-		Shatter = true,
-		Repair = false
-	},
-	Earthquake = {
-		Enabled = false
-	},
-	CameraShake = {
-		Enabled = true,
-		Range = 50,
-		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
-	},
-	Movement = {
-		Speed = 100,
-		Delay = 2,
-		Reversed = false
-	},
-	Rebounding = {
-		Enabled = false,
-		Type = "Rush", -- "Blitz"
-		Min = 0,
-		Max = 0,
-		Delay = 0
-	},
-	Damage = {
-		Enabled = true,
-		Range = 40,
-		Amount = 125
-	},
-	Crucifixion = {
-		Enabled = true,
-		Range = 400,
-		Resist = false,
-		Break = true
-	},
-	Death = {
-		Type = "Guiding", -- "Curious"
-		Hints = {"You died who you call Ripper...", "You can tell his presence by the lights and his scream.", "Hide when does this!", ""},
-		Cause = "Ripper"
-	}
+    Entity = {
+        Name = "Ripper",
+        Asset = "rbxassetid://12234498940",
+        HeightOffset = 0
+    },
+
+    Lights = {
+        Flicker = {
+            Enabled = false,
+            Duration = 1
+        },
+        Shatter = true,
+        Repair = false
+    },
+
+    CameraShake = {
+        Enabled = true,
+        Range = 50,
+        Values = {2.5, 20, 0.5, 1}
+    },
+
+    Movement = {
+        Speed = 100,
+        Delay = 4,
+        Reversed = false
+    },
+
+    Rebounding = {
+        Enabled = false
+    },
+
+    Damage = {
+        Enabled = true,
+        Range = 40,
+        Amount = 125 -- chạm = chết
+    },
+
+    Crucifixion = {
+        Enabled = false
+    },
+
+    Death = {
+        Type = "Guiding",
+        Hints = {"You died who you call Ripper...", "You can tell his presence by the lights and his scream.", "Hide when does this!"},
+        Cause = "Ripper"
+    }
 })
 
----====== Debug entity ======---
+---====== Callbacks ======---
 
 entity:SetCallback("OnSpawned", function()
-    print("Entity has spawned")
+    print("[RIPPER] Spawned")
 end)
 
 entity:SetCallback("OnStartMoving", function()
-    print("Entity has started moving")
+    print("[RIPPER] Moving")
 function GitAud(soundgit,filename)
 
     SoundName=tostring(SoundName)
@@ -104,45 +116,18 @@ function CustomGitSound(soundlink, vol, filename)
 
 end
 
-CustomGitSound("https://github.com/Kotyara19k-Doorsspawner/Random-files/raw/main/Y2meta.app%20-%20Ripper%20Has%20Moving%20Sound%20(320%20kbps).mp3", 1, "rippermoving")
-end)
-
-entity:SetCallback("OnEnterRoom", function(room, firstTime)
-    if firstTime == true then
-        print("Entity has entered room: ".. room.Name.. " for the first time")
-    else
-        print("Entity has entered room: ".. room.Name.. " again")
-    end
-end)
-
-entity:SetCallback("OnLookAt", function(lineOfSight)
-	if lineOfSight == true then
-		print("Player is looking at entity")
-	else
-		print("Player view is obstructed by something")
-	end
-end)
-
-entity:SetCallback("OnRebounding", function(startOfRebound)
-    if startOfRebound == true then
-        print("Entity has started rebounding")
-	else
-        print("Entity has finished rebounding")
-	end
-end)
-
-entity:SetCallback("OnDespawning", function()
-    print("Entity is despawning")
-end)
-
-entity:SetCallback("OnDespawned", function()
-    print("Entity has despawned")
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Anctarus7105/Custom-Badges/refs/heads/main/Hardcore%20Mode/Ripper.lua"))()
+CustomGitSound("https://github.com/Kotyara19k-Doorsspawner/Random-files/raw/main/Y2meta.app%20-%20Ripper%20Has%20Moving%20Sound%20(320%20kbps).mp3?raw=true", 1, "rippermoving")
 end)
 
 entity:SetCallback("OnDamagePlayer", function(newHealth)
-	if newHealth == 0 then
-workspace.RipeMoving:Stop()
+    if newHealth <= 0 then
+        if ReSt:FindFirstChild("GameStats") then
+            local stats = ReSt.GameStats:FindFirstChild("Player_"..Plr.Name)
+            if stats then
+                stats.Total.DeathCause.Value = "Ripper"
+            end
+        end
+        workspace.RipeMoving:Stop()
 workspace.Ripper:Destroy()
 
 local player = game.Players.LocalPlayer
@@ -224,18 +209,22 @@ local function DeathHint(hints, type: string)
     end
 end
 	end
+    end
 end)
 
---[[
+entity:SetCallback("OnDespawned", function()
+    print("[RIPPER] Despawned")
+---====== Load achievement giver ======---
+local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
 
-DEVELOPER NOTE:
-By overwriting 'CrucifixionOverwrite' the default crucifixion callback will be replaced with your custom callback.
-
-entity:SetCallback("CrucifixionOverwrite", function()
-    print("Crucifixed Ripper")
+---====== Display achievement ======---
+achievementGiver({
+    Title = "Torn Apart",
+    Desc = "Dont leave to early..",
+    Reason = "Encounter Ripper.",
+    Image = "rbxassetid://17702317077"
+})
 end)
-
-]]--
 
 ---====== Run entity ======---
 
