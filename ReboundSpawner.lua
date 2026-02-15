@@ -1,16 +1,3 @@
-local Reboundcolor = Instance.new("ColorCorrectionEffect",game.Lighting) game.Debris:AddItem(Reboundcolor,24) 
-    Reboundcolor.Name = "Warn" 
-    Reboundcolor.TintColor = Color3.fromRGB(65, 138, 255) Reboundcolor.Saturation = -0.7 Reboundcolor.Contrast = 0.2 
-    game.TweenService:Create(Reboundcolor,TweenInfo.new(15),{TintColor = Color3.fromRGB(255, 255, 255),Saturation = 0, Contrast = 0}):Play()
-
-local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
-local camara = game.Workspace.CurrentCamera
-local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
- camara.CFrame = camara.CFrame * shakeCf
-end)
-camShake:Start()
-camShake:ShakeOnce(10,3,0.1,6,2,0.5)
-
 function GitAud(soundgit,filename)
 
     SoundName=tostring(SoundName)
@@ -133,7 +120,7 @@ function Move()
             wait(0.5)
             local v = game.Players.LocalPlayer
             if v.Character and not v.Character:GetAttribute("Hiding") then
-                if canSeeTarget(v.Character, 50) then
+                if canSeeTarget(v.Character, 150) then
                     local ReboundJs = Instance.new("ScreenGui")
                     local Static = Instance.new("ImageLabel")
                     local Rebound = Instance.new("ImageLabel")
