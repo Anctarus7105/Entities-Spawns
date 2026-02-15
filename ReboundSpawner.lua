@@ -45,8 +45,8 @@ end
 
 CustomGitSound("https://github.com/Anctarus7105/Custom-Sounds/raw/main/ReboundWarning.mp3", 1, "reboundspawn")
 
-wait(5)
-local maxRebounds = 5
+wait(0)
+local maxRebounds = 1
 local cameraShaker = require(game.ReplicatedStorage.CameraShaker)
 local camera = workspace.CurrentCamera
 local camShake = cameraShaker.new(Enum.RenderPriority.Camera.Value, function(cf)
@@ -93,7 +93,7 @@ function LoadCustomInstance(assetId, parent)
 end
 
 function Move()
-    local s = LoadCustomInstance("12254145022", workspace)
+    local s = LoadCustomInstance("16491680927", workspace)
     s.Parent = workspace
     local val = 60
     local killed = false
@@ -250,7 +250,7 @@ function Rebound()
 
     while maxRebounds > 0 do
         game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
-        wait(2)
+        wait(99999999999999999999999999999999999999999999999999999999999999999)
         pcall(Move)
         maxRebounds = maxRebounds - 1
     end
