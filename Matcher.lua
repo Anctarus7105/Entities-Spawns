@@ -2,23 +2,6 @@
 
 local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
 
-game.Lighting.MainColorCorrection.TintColor = Color3.fromRGB(212, 255, 0)
-game.Lighting.MainColorCorrection.Contrast = 0.3
-local tween = game:GetService("TweenService")
-tween:Create(game.Lighting.MainColorCorrection, TweenInfo.new(0.5), {Contrast = 0}):Play()
-local TweenService = game:GetService("TweenService")
-local TW = TweenService:Create(game.Lighting.MainColorCorrection, TweenInfo.new(0.5),{TintColor = Color3.fromRGB(255, 255, 255)})
-TW:Play()
-    local roast = Instance.new("Sound")
-    roast.Parent = workspace
-    roast.Name = "roast"
-    roast.SoundId = "rbxassetid://9125936117"
-    roast.Volume = 0.5
-    roast.Pitch = 3
-    roast:Play()
-    wait(0.6)
-    roast:Destroy()
-
 ---====== Create entity ======---
 
 local entity = spawner.Create({
