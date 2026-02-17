@@ -1,149 +1,214 @@
-local TweenService = game:GetService("TweenService")
+local spawner = loadstring(game:HttpGet("https://pastefy.app/uKozjSR2/raw"))()
+local dmg
+local entity = spawner.Create({
+	Entity = {
+		Name = "Cease",
+		Asset = "rbxassetid://16950076354",
+		HeightOffset = 0
+	},
+	Lights = {
+		Flicker = {
+			Enabled = false,
+			Duration = 1
+		},
+		Shatter = false,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = true,
+		Range = 100,
+		Values = {5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	},
+	Movement = {
+		Speed = 120,
+		Delay = 5,
+		Reversed = false
+	},
+	Rebounding = {
+		Enabled = false,
+		Type = "Ambush", -- "Blitz"
+		Min = 1,
+		Max = 1,
+		Delay = 1
+	},
+	Damage = {
+		Enabled = false,
+		Range = 9999,
+		Amount = 9999
+	},
+	Crucifixion = {
+		Enabled = false,
+		Range = 40,
+		Resist = false,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding", -- "Curious"
+		Hints = {"You Died To Cease", "Never Move", " That's all. ", " ... "},
+		Cause = "Cease"
+	}
+})
 
---- Configs
+local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+local camara = game.Workspace.CurrentCamera
 
-local ambruhspeed = 40
+local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(cf)
+	camara.CFrame = camara.CFrame * cf
+end)
+camShake:Start()
+camShake:Shake(CameraShaker.Presets.Earthquake)
 
-local redtweeninfo = TweenInfo.new(3)
+local redtweeninfo = TweenInfo.new(8)
+local redinfo = {Color = Color3.new(0, 0, 1)}
 
-local redinfo = {Color = Color3.fromRGB(125, 125, 255)}
-
--- Изменение цвета света
-
-for i, v in pairs(workspace.CurrentRooms:GetDescendants()) do
-
-    if v:IsA("Light") then
-
-        TweenService:Create(v, redtweeninfo, redinfo):Play()
-
-        if v.Parent.Name == "LightFixture" then
-
-            TweenService:Create(v.Parent, redtweeninfo, redinfo):Play()
-
-        end
-
-    end
-
+for i,v in pairs(workspace.CurrentRooms:GetDescendants()) do
+	if v:IsA("Light") then
+		game.TweenService:Create(v,redtweeninfo,redinfo):Play()
+		if v.Parent.Name == "LightFixture" then
+			game.TweenService:Create(v.Parent,redtweeninfo,redinfo):Play()
+		end
+	end
 end
 
-local room = workspace.CurrentRooms[game.Players.LocalPlayer:GetAttribute("CurrentRoom")]
+local Sielnce = Instance.new("Sound", workspace)
+Sielnce.SoundId = "rbxassetid://166047422"
+Sielnce:Play()
+Sielnce.Volume = 3
+game.Debris:AddItem(Sielnce, 2)
 
-local color = Color3.fromRGB(100, 120, 228)
+entity:SetCallback("OnStartMoving", function()
 
-for _, thing in pairs(room.Assets:GetDescendants()) do
+local hitbox = 120
+dmg = game:GetService("RunService").Heartbeat:Connect(function()
+local origin = entity.Model:FindFirstChildWhichIsA("BasePart").Position
+local direction = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - origin).Unit
+local ray = Ray.new(origin, direction * hitbox)
 
-    if thing:FindFirstChild("LightFixture") then
+local result = workspace:Raycast(ray.Origin, ray.Direction)
+     if result and result.Instance.Parent == game.Players.LocalPlayer.Character then
+           if game.Players.LocalPlayer.Character.Humanoid.MoveDirection ~= Vector3.new(0, 0, 0) then
+              entity.Config.Damage.Enabled = true
+          end
+     end
+end)
 
-        local lightFixture = thing.LightFixture
+end)
 
-        if lightFixture:FindFirstChild("Neon") then
+entity:SetCallback("OnDespawning", function()
+... (осталось: 5 строк)
 
-            lightFixture.Neon.Color = color
+Cease.txt
+3 кб
+chú bé tê liệt ✪ OVERDOORS ✪ — 08:02
+HARDCORE REWORK UPDATE ĐÃ CÓ NÚT CHẠY
+loadstring(game:HttpGet("https://raw.githubusercontent.com/chubeteliet-cpu/Hardcore-rework-upt-/refs/heads/main/Hardcore-rework-update-bychubeteliet", true))()
+Giờ thì có mã hóa r
+﻿
+local spawner = loadstring(game:HttpGet("https://pastefy.app/uKozjSR2/raw"))()
+local dmg
+local entity = spawner.Create({
+	Entity = {
+		Name = "Cease",
+		Asset = "rbxassetid://16950076354",
+		HeightOffset = 0
+	},
+	Lights = {
+		Flicker = {
+			Enabled = false,
+			Duration = 1
+		},
+		Shatter = false,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = true,
+		Range = 100,
+		Values = {5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	},
+	Movement = {
+		Speed = 120,
+		Delay = 5,
+		Reversed = false
+	},
+	Rebounding = {
+		Enabled = false,
+		Type = "Ambush", -- "Blitz"
+		Min = 1,
+		Max = 1,
+		Delay = 1
+	},
+	Damage = {
+		Enabled = false,
+		Range = 9999,
+		Amount = 9999
+	},
+	Crucifixion = {
+		Enabled = false,
+		Range = 40,
+		Resist = false,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding", -- "Curious"
+		Hints = {"You Died To Cease", "Never Move", " That's all. ", " ... "},
+		Cause = "Cease"
+	}
+})
 
-        end
+local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+local camara = game.Workspace.CurrentCamera
 
-        for _, light in pairs(lightFixture:GetChildren()) do
+local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(cf)
+	camara.CFrame = camara.CFrame * cf
+end)
+camShake:Start()
+camShake:Shake(CameraShaker.Presets.Earthquake)
 
-            if light:IsA("SpotLight") or light:IsA("PointLight") then
+local redtweeninfo = TweenInfo.new(8)
+local redinfo = {Color = Color3.new(0, 0, 1)}
 
-                light.Color = color
-
-            end
-
-        end
-
-    end
-
+for i,v in pairs(workspace.CurrentRooms:GetDescendants()) do
+	if v:IsA("Light") then
+		game.TweenService:Create(v,redtweeninfo,redinfo):Play()
+		if v.Parent.Name == "LightFixture" then
+			game.TweenService:Create(v.Parent,redtweeninfo,redinfo):Play()
+		end
+	end
 end
 
-local s = game:GetObjects("rbxassetid://11547018893")[1]
+local Sielnce = Instance.new("Sound", workspace)
+Sielnce.SoundId = "rbxassetid://166047422"
+Sielnce:Play()
+Sielnce.Volume = 3
+game.Debris:AddItem(Sielnce, 2)
 
-local latestRoomIndex = game.ReplicatedStorage.GameData.LatestRoom.Value
+entity:SetCallback("OnStartMoving", function()
 
-local door = game.Workspace.CurrentRooms[latestRoomIndex].Door.Door
+local hitbox = 120
+dmg = game:GetService("RunService").Heartbeat:Connect(function()
+local origin = entity.Model:FindFirstChildWhichIsA("BasePart").Position
+local direction = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - origin).Unit
+local ray = Ray.new(origin, direction * hitbox)
 
-local function moveToDoor1()
+local result = workspace:Raycast(ray.Origin, ray.Direction)
+     if result and result.Instance.Parent == game.Players.LocalPlayer.Character then
+           if game.Players.LocalPlayer.Character.Humanoid.MoveDirection ~= Vector3.new(0, 0, 0) then
+              entity.Config.Damage.Enabled = true
+          end
+     end
+end)
 
-    local targetPosition = door.Position
+end)
 
-    local currentPosition = s.PrimaryPart.Position
+entity:SetCallback("OnDespawning", function()
+	entity.Model:Destroy()
+	dmg:Disconnect()
+end)
 
-    local distance = (targetPosition - currentPosition).magnitude
-
-    local timeToReach = distance / ambruhspeed
-
-    local tweenInfo = TweenInfo.new(timeToReach, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-
-    local goal = {Position = targetPosition}
-
-    local tween = TweenService:Create(s.PrimaryPart, tweenInfo, goal)
-
-    
-
-    tween:Play()
-
-    tween.Completed:Wait() -- Дождаться завершения анимации
-
-    s.PrimaryPart.Anchored = false
-
-    s.PrimaryPart.CanCollide = false
-
-end
-
-local function canSeeTarget()
-
-    local players = game.Players:GetPlayers()
-
-    for _, player in ipairs(players) do
-
-        local character = player.Character
-
-        local humanoid = character and character:FindFirstChildWhichIsA("Humanoid")
-
-     
-
-        if humanoid and humanoid.Health > 0 and character:FindFirstChild("HumanoidRootPart") then
-
-            local distance = (s.PrimaryPart.Position - character.HumanoidRootPart.Position).magnitude
-
-            
-
-            if distance <= 50 then   
-
-                    end
-
-                end)
-
-            end
-
-        end
-
-    end
-
-end
-
-local rootPart = s:FindFirstChild("HumanoidRootPart") or s:FindFirstChildWhichIsA("Part")
-
-if rootPart then
-
-    s.PrimaryPart = rootPart
-
-end
-
-s.Silence:Play()
-
-s.Parent = workspace
-
-s.PrimaryPart.CFrame = CFrame.new(250, 0, -1)
-
-wait(3)
-
-moveToDoor1()
-
-while true do
-
-    canSeeTarget()
-
-    wait(1) 
-
-end
+entity:Run()
