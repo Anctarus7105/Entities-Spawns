@@ -20,7 +20,7 @@ function CustomGitSound(soundlink, vol, filename)
 
     sound.Parent = workspace
 
-    sound.Name = "deezerspawn"
+    sound.Name = "demonicscrahspawn"
 
     sound.Volume = 1.4
 
@@ -39,12 +39,5 @@ require(player.PlayerGui.MainUI.Initiator.Main_Game.RemoteListener.Modules.Scree
 
 screechModule(mainGame)
 
--- Find Eyes And Do Red Color
-
-game.Workspace:FindFirstChild("Eyes") or game.Workspace:FindFirstChild("eyes")
-
-if Eyes or eyes then
-
 game.ReplicatedStorage.Entities.Screech.Top.Eyes.Color = Color3.fromRGB(255, 0, 0)
-
 end
