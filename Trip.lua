@@ -23,7 +23,7 @@ local entity = Creator.createEntity({
         1, -- Shake start distance (from Entity to you)
     },
     Jumpscare = {
-        false, -- Enabled ('false' if you don't want jumpscare)
+        true, -- Enabled ('false' if you don't want jumpscare)
         {
             Image1 = "https://www.roblox.com/library/11862656491", -- Image1 url
             Image2 = "https://www.roblox.com/library/11862656491", -- Image2 url
